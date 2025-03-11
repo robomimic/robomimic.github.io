@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>robomimic.envs package &#8212; robomimic 0.3 documentation</title>
+    <title>robomimic.envs package &#8212; robomimic 0.4 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -350,6 +350,11 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.3.html">
+   v0.3
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.2.html">
    v0.2
   </a>
@@ -619,7 +624,7 @@ with metadata present in datasets.</p>
 observations, labeling dense / sparse rewards, and annotating dones in
 transitions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>camera_names</strong> (<em>[</em><em>str</em><em>]</em>) – list of camera names that correspond to image observations</p></li>
 <li><p><strong>camera_height</strong> (<em>int</em>) – camera height for all cameras</p></li>
@@ -633,7 +638,7 @@ transitions.</p>
 <li><p><strong>use_depth_obs</strong> (<em>bool</em>) – if True, use depth observations</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>env (EnvBase instance)</p>
 </dd>
 </dl>
@@ -694,10 +699,10 @@ and additional optional keys corresponding to other task criteria.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_base.EnvBase.reset" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset environment.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>initial observation dictionary.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>observation (dict)</p>
 </dd>
 </dl>
@@ -708,13 +713,13 @@ and additional optional keys corresponding to other task criteria.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_base.EnvBase.reset_to" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset to a specific simulator state.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>state</strong> (<em>dict</em>) – current simulator state</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>observation dictionary after setting the simulator state</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>observation (dict)</p>
 </dd>
 </dl>
@@ -747,16 +752,16 @@ and used in utils/env_utils.py.</p>
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_base.EnvBase.step" title="Permalink to this definition">#</a></dt>
 <dd><p>Step in the environment with an action.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action</strong> (<em>np.array</em>) – action to take</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>new observation dictionary
 reward (float): reward for this step
 done (bool): whether the task is done
 info (dict): extra information</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>observation (dict)</p>
 </dd>
 </dl>
@@ -837,7 +842,7 @@ with metadata present in datasets.</p>
 observations, labeling dense / sparse rewards, and annotating dones in
 transitions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>env_name</strong> (<em>str</em>) – name of environment</p></li>
 <li><p><strong>camera_names</strong> (<em>list of str</em>) – list of camera names that correspond to image observations</p></li>
@@ -867,10 +872,10 @@ Normal camera convention: <a class="reference external" href="https://docs.openc
 :param camera_name: name of camera
 :type camera_name: str</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>4x4 camera extrinsic matrix</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>R (np.array)</p>
 </dd>
 </dl>
@@ -887,10 +892,10 @@ Normal camera convention: <a class="reference external" href="https://docs.openc
 :param camera_width: width of camera images in pixels
 :type camera_width: int</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>3x3 camera matrix</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>K (np.array)</p>
 </dd>
 </dl>
@@ -907,10 +912,10 @@ Normal camera convention: <a class="reference external" href="https://docs.openc
 :param camera_width: width of camera images in pixels
 :type camera_width: int</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>4x4 camera matrix to project from world coordinates to pixel coordinates</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>K (np.array)</p>
 </dd>
 </dl>
@@ -927,7 +932,7 @@ Normal camera convention: <a class="reference external" href="https://docs.openc
 <span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">di</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.get_observation" title="Permalink to this definition">#</a></dt>
 <dd><p>Get current environment observation dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>di</strong> (<em>dict</em>) – current raw observation dictionary from robosuite to wrap and provide
 as a dictionary. If not provided, will be queried from robosuite.</p>
 </dd>
@@ -969,6 +974,12 @@ and additional optional keys corresponding to other task criteria.</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="robomimic.envs.env_robosuite.EnvRobosuite.is_v15_or_higher">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_v15_or_higher</span></span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.is_v15_or_higher" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns true if the robosuite version is v1.5.0+</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="robomimic.envs.env_robosuite.EnvRobosuite.name">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.name" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns name of environment name (str).</p>
@@ -979,7 +990,7 @@ and additional optional keys corresponding to other task criteria.</p>
 <span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'agentview'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.render" title="Permalink to this definition">#</a></dt>
 <dd><p>Render from simulation to either an on-screen window or off-screen to RGB array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> (<em>str</em>) – pass “human” for on-screen rendering or “rgb_array” for off-screen rendering</p></li>
 <li><p><strong>height</strong> (<em>int</em>) – height of image to render - only used if mode is “rgb_array”</p></li>
@@ -992,14 +1003,18 @@ and additional optional keys corresponding to other task criteria.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robomimic.envs.env_robosuite.EnvRobosuite.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.reset" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unset_ep_meta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.reset" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset environment.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>initial observation dictionary.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>unset_ep_meta</strong> (<em>np.array</em>) – whether to reset any previously set episode metadata (otherwise
+will continue to use previous episode metadata)</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>observation (dict)</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>initial observation dictionary.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>observation (dict)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1009,19 +1024,19 @@ and additional optional keys corresponding to other task criteria.</p>
 <span class="sig-name descname"><span class="pre">reset_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.reset_to" title="Permalink to this definition">#</a></dt>
 <dd><p>Reset to a specific simulator state.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>state</strong> (<em>dict</em>) – current simulator state that contains one or more of:
 - states (np.ndarray): initial state of the mujoco environment
 - model (str): mujoco scene xml</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>observation dictionary after setting the simulator state (only</dt><dd><p>if “states” is in &#64;state)</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>observation (dict)</p>
 </dd>
 </dl>
@@ -1054,16 +1069,16 @@ and used in utils/env_utils.py.</p>
 <span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.envs.env_robosuite.EnvRobosuite.step" title="Permalink to this definition">#</a></dt>
 <dd><p>Step in the environment with an action.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action</strong> (<em>np.array</em>) – action to take</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>new observation dictionary
 reward (float): reward for this step
 done (bool): whether the task is done
 info (dict): extra information</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>observation (dict)</p>
 </dd>
 </dl>
@@ -1103,10 +1118,10 @@ This helps identify this env class.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unwrapped</span></span><a class="headerlink" href="#robomimic.envs.wrappers.EnvWrapper.unwrapped" title="Permalink to this definition">#</a></dt>
 <dd><p>Grabs unwrapped environment</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Unwrapped environment</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>env (EnvBase instance)</p>
 </dd>
 </dl>
@@ -1132,7 +1147,7 @@ when it calls &#64;env.reset, &#64;env.reset_to, or &#64;env.step in the rollout
 <dd><p>Modify to return frame stacked observation which is &#64;self.num_frames copies of
 the initial observation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>each observation key in original observation now has</dt><dd><p>leading shape &#64;self.num_frames and consists of the previous &#64;self.num_frames
 observations</p>
@@ -1140,7 +1155,7 @@ observations</p>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>obs_stacked (dict)</p>
 </dd>
 </dl>
@@ -1152,7 +1167,7 @@ observations</p>
 <dd><p>Modify to return frame stacked observation which is &#64;self.num_frames copies of
 the initial observation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt>each observation key in original observation now has</dt><dd><p>leading shape &#64;self.num_frames and consists of the previous &#64;self.num_frames
 observations</p>
@@ -1160,7 +1175,7 @@ observations</p>
 </dl>
 </p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>obs_stacked (dict)</p>
 </dd>
 </dl>
@@ -1172,10 +1187,10 @@ observations</p>
 <dd><p>Modify to update the internal frame history and return frame stacked observation,
 which will have leading dimension &#64;self.num_frames for each key.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action</strong> (<em>np.array</em>) – action to take</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>each observation key in original observation now has</dt><dd><p>leading shape &#64;self.num_frames and consists of the previous &#64;self.num_frames
 observations</p>
@@ -1186,7 +1201,7 @@ done (bool): whether the task is done
 info (dict): extra information</p>
 </p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>obs_stacked (dict)</p>
 </dd>
 </dl>

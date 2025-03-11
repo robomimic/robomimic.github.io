@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Configs &#8212; robomimic 0.3 documentation</title>
+    <title>Configs &#8212; robomimic 0.4 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -350,6 +350,11 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.3.html">
+   v0.3
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.2.html">
    v0.2
   </a>
@@ -564,15 +569,15 @@ title="Print to PDF"
 <span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 <span class="n">c</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 <span class="n">c</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">][</span><span class="s2">&quot;save&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">c</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">][</span><span class="s2">&quot;save&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;save enabled: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">][</span><span class="s2">&quot;save&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]))</span>
+<span class="n">c</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">][</span><span class="s2">&quot;save&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;save enabled: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">][</span><span class="s2">&quot;save&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]))</span>
 
 <span class="c1"># can use dot syntax instead of key lookup to create nested dictionaries</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">save</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">c</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">save</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
 
 <span class="c1"># can also use dot syntax to access attributes</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;save enabled: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">save</span><span class="o">.</span><span class="n">enabled</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;save enabled: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">save</span><span class="o">.</span><span class="n">enabled</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>It’s easy to go back and forth between <code class="docutils literal notranslate"><span class="pre">Config</span></code> objects and jsons as well, which is convenient when saving config objects to disk (this happens when generating new config jsons for training, and when saving the config in a model checkpoint), and loading configs from jsons.</p>
@@ -603,7 +608,7 @@ title="Print to PDF"
     <span class="c1"># make config class for this algorithm</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">all_configs</span><span class="p">[</span><span class="n">algo_name</span><span class="p">]()</span>
     <span class="c1"># dump to json</span>
-    <span class="n">json_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">algo_name</span><span class="p">))</span>
+    <span class="n">json_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="s2">&quot;{}.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">algo_name</span><span class="p">))</span>
     <span class="n">c</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">json_path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -624,7 +629,7 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>At test-time, when loading a model from a checkpoint, the config is restored by reading the json string from the checkpoint, and then using it to instantiate the config. An example is below (modified slightlyt from <code class="docutils literal notranslate"><span class="pre">config_from_checkpoint</span></code> in <code class="docutils literal notranslate"><span class="pre">utils/file_utils.py</span></code>)</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">robomimic.utils.file_utils</span> <span class="k">as</span> <span class="nn">FileUtils</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">robomimic.utils.file_utils</span> <span class="kn">as</span> <span class="nn">FileUtils</span>
 <span class="n">ckpt_dict</span> <span class="o">=</span> <span class="n">FileUtils</span><span class="o">.</span><span class="n">load_dict_from_checkpoint</span><span class="p">(</span><span class="s2">&quot;path/to/ckpt.pth&quot;</span><span class="p">)</span>
 <span class="n">config_json</span> <span class="o">=</span> <span class="n">ckpt_dict</span><span class="p">[</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
 <span class="n">config</span> <span class="o">=</span> <span class="n">config_factory</span><span class="p">(</span><span class="n">ckpt_dict</span><span class="p">[</span><span class="s2">&quot;algo_name&quot;</span><span class="p">],</span> <span class="n">dic</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config_json</span><span class="p">))</span>

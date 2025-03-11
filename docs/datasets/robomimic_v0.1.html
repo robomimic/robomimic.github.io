@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>robomimic v0.1 (CoRL 2021) &#8212; robomimic 0.3 documentation</title>
+    <title>robomimic v0.1 (CoRL 2021) &#8212; robomimic 0.4 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -349,6 +349,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.3.html">
+   v0.3
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.2.html">
    v0.2
@@ -704,39 +709,42 @@ title="Print to PDF"
 <h2>Downloading<a class="headerlink" href="#downloading" title="Permalink to this headline">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning!</p>
-<!-- When working with these datasets, please make sure that you have installed [robosuite](https://robosuite.ai/) from source and are on the `v1.4.1` branch. --><p>Since the release of robomimic v0.3, we recommend that users install <a class="reference external" href="https://robosuite.ai/">robosuite</a> from source and are on the <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code> branch. The <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code> branch of robosuite uses Google DeepMind’s <a class="reference external" href="https://github.com/deepmind/mujoco">mujoco python bindings</a> which replaces the now deprecated <a class="reference external" href="https://github.com/openai/mujoco-py">mujoco-py</a>.</p>
-<p>Note that the CoRL 2021 datasets relied on the mujoco-py based <code class="docutils literal notranslate"><span class="pre">offline_study</span></code> branch of robosuite. In this version of robomimic we provide users with datasets based on <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code>, which we found produce similar results to the original <code class="docutils literal notranslate"><span class="pre">offline_study</span></code> datasets. However if you would like to download the <code class="docutils literal notranslate"><span class="pre">offline_study</span></code> datasets, please use the <code class="docutils literal notranslate"><span class="pre">v0.2.0</span></code> branch of robomimic and consult the <a class="reference external" href="https://robomimic.github.io/docs/v0.2/datasets/robomimic_v0.1.html">v0.2 docs</a> for instructions.</p>
+<!-- When working with these datasets, please make sure that you have installed [robosuite](https://robosuite.ai/) from source and are on the `v1.4.1` branch. --><p>Since the release of robomimic v0.4, we recommend that users install <a class="reference external" href="https://robosuite.ai/">robosuite</a> from source and are on the <code class="docutils literal notranslate"><span class="pre">v1.5.1</span></code> branch. The <code class="docutils literal notranslate"><span class="pre">v1.5.1</span></code> branch of robosuite uses Google DeepMind’s <a class="reference external" href="https://github.com/deepmind/mujoco">mujoco python bindings</a> which replaces the now deprecated <a class="reference external" href="https://github.com/openai/mujoco-py">mujoco-py</a>.</p>
+<p>Note that the CoRL 2021 datasets relied on the mujoco-py based <code class="docutils literal notranslate"><span class="pre">offline_study</span></code> branch of robosuite. In this version of robomimic we provide users with datasets based on <code class="docutils literal notranslate"><span class="pre">v1.5.1</span></code>, which allows users to use new robosuite features. However, it is possible that learning results may not match exactly with the original <code class="docutils literal notranslate"><span class="pre">offline_study</span></code> datasets. If you would like to download the <code class="docutils literal notranslate"><span class="pre">offline_study</span></code> datasets, please use the <code class="docutils literal notranslate"><span class="pre">v0.2.0</span></code> branch of robomimic and consult the <a class="reference external" href="https://robomimic.github.io/docs/v0.2/datasets/robomimic_v0.1.html">v0.2 docs</a> for instructions.</p>
+<p>Previously, we also had datasets based on the <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code> branch of robosuite, packaged with robomimic v0.3. If you would like to use those, please switch to robomimic v0.3 and consult the <a class="reference external" href="https://robomimic.github.io/docs/v0.3/datasets/robomimic_v0.1.html">v0.3 docs</a> for instructions.</p>
 </div><p>We provide two ways for downloading robomimic v0.1 datasets:</p>
 <section id="method-1-using-download-datasets-py-recommended">
 <h3>Method 1: Using <code class="docutils literal notranslate"><span class="pre">download_datasets.py</span></code> (Recommended)<a class="headerlink" href="#method-1-using-download-datasets-py-recommended" title="Permalink to this headline">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">download_datasets.py</span></code> is a python script that provides a programmatic way of installing all datasets. This is the preferred method, because this script also sets up a directory structure for the datasets that works out of the box with examples for reproducing benchmark results.</p>
 <p>A few examples of using this script are provided below:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># default behavior - just download lift proficient-human low-dim dataset</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py
+$ python download_datasets.py
 
 <span class="c1"># download low-dim proficient-human datasets for all simulation tasks</span>
 <span class="c1"># (do a dry run first to see which datasets would be downloaded)</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span class="w"> </span>--tasks<span class="w"> </span>sim<span class="w"> </span>--dataset_types<span class="w"> </span>ph<span class="w"> </span>--hdf5_types<span class="w"> </span>low_dim<span class="w"> </span>--dry_run
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span class="w"> </span>--tasks<span class="w"> </span>sim<span class="w"> </span>--dataset_types<span class="w"> </span>ph<span class="w"> </span>--hdf5_types<span class="w"> </span>low_dim
+$ python download_datasets.py --tasks sim --dataset_types ph --hdf5_types low_dim --dry_run
+$ python download_datasets.py --tasks sim --dataset_types ph --hdf5_types low_dim
 
 <span class="c1"># download all low-dim multi-human datasets for the can and square tasks</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span class="w"> </span>--tasks<span class="w"> </span>can<span class="w"> </span>square<span class="w"> </span>--dataset_types<span class="w"> </span>mh<span class="w"> </span>--hdf5_types<span class="w"> </span>low_dim
+$ python download_datasets.py --tasks can square --dataset_types mh --hdf5_types low_dim
 
 <span class="c1"># download the sparse reward machine-generated low-dim datasets</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span class="w"> </span>--tasks<span class="w"> </span>all<span class="w"> </span>--dataset_types<span class="w"> </span>mg<span class="w"> </span>--hdf5_types<span class="w"> </span>low_dim_sparse
+$ python download_datasets.py --tasks all --dataset_types mg --hdf5_types low_dim_sparse
 
 <span class="c1"># download all real robot datasets</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span class="w"> </span>--tasks<span class="w"> </span>real
+$ python download_datasets.py --tasks real
 
 <span class="c1"># specify a different location for downloading the datasets</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span class="w"> </span>--download_dir<span class="w"> </span>/tmp/datasets
+$ python download_datasets.py --download_dir /tmp/datasets
 </pre></div>
 </div>
 </section>
 <section id="method-2-using-direct-download-links">
 <h3>Method 2: Using Direct Download Links<a class="headerlink" href="#method-2-using-direct-download-links" title="Permalink to this headline">#</a></h3>
-<p>We also provide direct download links for each hdf5 dataset (the download links for the raw datasets are also included – they allow flexibility in extracting different kinds of observations and rewards during postprocessing):</p>
-<p><strong>Proficient-Human (PH)</strong> <a class="reference external" href="robomimic_v0.1.html#proficient-human-ph"><strong>info</strong></a></p>
+<p>We also provide direct download links for each hdf5 dataset (the download links for the raw datasets are also included – they allow flexibility in extracting different kinds of observations and rewards during postprocessing).</p>
+<div class="admonition info">
+<p class="admonition-title">HuggingFace repository</p><p>You can also find all of the datasets at the Hugging Face link <a class="reference external" href="https://huggingface.co/datasets/amandlek/robomimic/tree/main/v1.5">here</a> (except for the real robot datasets, which are not hosted there).</p>
+</div><p><strong>Proficient-Human (PH)</strong> <a class="reference external" href="robomimic_v0.1.html#proficient-human-ph"><strong>info</strong></a></p>
 <details>
   <summary><b>Download Links</b></summary>
 <p><img src="../images/proficient_human.png" alt="proficient_human" style="zoom:33%;" /><table border="1" class="docutils">
@@ -758,18 +766,18 @@ $<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span
 <td style="text-align: center;"><img alt="tool_hang" src="../images/tool_hang.png" /></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/ph/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/ph/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/square/ph/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/transport/ph/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/tool_hang/ph/demo_v141.hdf5">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/ph/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/ph/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/square/ph/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/transport/ph/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/tool_hang/ph/demo_v15.hdf5?download=true">raw</a></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/ph/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/ph/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/square/ph/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/transport/ph/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/tool_hang/ph/low_dim_v141.hdf5">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/ph/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/ph/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/square/ph/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/transport/ph/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/tool_hang/ph/low_dim_v15.hdf5?download=true">low_dim</a></td>
 </tr>
 </tbody>
 </table><table border="1" class="docutils">
@@ -815,16 +823,16 @@ $<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span
 <td style="text-align: center;"><img alt="transport" src="../images/transport.png" /></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/mh/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/mh/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/square/mh/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/transport/mh/demo_v141.hdf5">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/mh/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/mh/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/square/mh/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/transport/mh/demo_v15.hdf5?download=true">raw</a></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/mh/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/mh/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/square/mh/low_dim_v141.hdf5">low_dim</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/transport/mh/low_dim_v141.hdf5">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/mh/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/mh/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/square/mh/low_dim_v15.hdf5?download=true">low_dim</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/transport/mh/low_dim_v15.hdf5?download=true">low_dim</a></td>
 </tr>
 <tr>
 <td style="text-align: center;"></p></td>
@@ -856,16 +864,16 @@ $<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span
 <td style="text-align: center;"><img alt="can" src="../images/can.png" /></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/mg/demo_v141.hdf5">raw</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/mg/demo_v141.hdf5">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/mg/demo_v15.hdf5?download=true">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/mg/demo_v15.hdf5?download=true">raw</a></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/mg/low_dim_sparse_v141.hdf5">low_dim (sparse)</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/mg/low_dim_sparse_v141.hdf5">low_dim (sparse)</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/mg/low_dim_sparse_v15.hdf5?download=true">low_dim (sparse)</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/mg/low_dim_sparse_v15.hdf5?download=true">low_dim (sparse)</a></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/mg/low_dim_dense_v141.hdf5">low_dim (dense)</a></td>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/mg/low_dim_dense_v141.hdf5">low_dim (dense)</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/lift/mg/low_dim_dense_v15.hdf5?download=true">low_dim (dense)</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/mg/low_dim_dense_v15.hdf5?download=true">low_dim (dense)</a></td>
 </tr>
 </tbody>
 </table></p>
@@ -884,10 +892,10 @@ $<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span
 <td style="text-align: center;"><img src="../images/can_paired.png" alt="can_paired" style="zoom:12%;" /></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/paired/demo_v141.hdf5">raw</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/paired/demo_v15.hdf5?download=true">raw</a></td>
 </tr>
 <tr>
-<td style="text-align: center;"><a href="http://downloads.cs.stanford.edu/downloads/rt_benchmark/can/paired/low_dim_v141.hdf5">low_dim (sparse)</a></td>
+<td style="text-align: center;"><a href="https://huggingface.co/datasets/amandlek/robomimic/resolve/main/v1.5/can/paired/low_dim_v15.hdf5?download=true">low_dim (sparse)</a></td>
 </tr>
 </tbody>
 </table></p>
@@ -924,10 +932,10 @@ $<span class="w"> </span>python<span class="w"> </span>download_datasets.py<span
 <h3>Running Experiments<a class="headerlink" href="#running-experiments" title="Permalink to this headline">#</a></h3>
 <p>After downloading the appropriate datasets you’re interested in using by running the <code class="docutils literal notranslate"><span class="pre">download_datasets.py</span></code> script, the <code class="docutils literal notranslate"><span class="pre">generate_paper_configs.py</span></code> script can be used to generate all training config json files necessary to reproduce the experiments in the <a class="reference external" href="https://robomimic.github.io/study/">study</a>. A few examples are below.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assume datasets already exist in robomimic/../datasets folder. Configs will be generated under robomimic/exps/paper, and training results will be at /tmp/experiment_results when launching training runs.</span>
-$<span class="w"> </span>python<span class="w"> </span>generate_paper_configs.py<span class="w"> </span>--output_dir<span class="w"> </span>/tmp/experiment_results
+$ python generate_paper_configs.py --output_dir /tmp/experiment_results
 
 <span class="c1"># Alternatively, specify where datasets exist, and specify where configs should be generated.</span>
-$<span class="w"> </span>python<span class="w"> </span>generate_paper_configs.py<span class="w"> </span>--config_dir<span class="w"> </span>/tmp/configs<span class="w"> </span>--dataset_dir<span class="w"> </span>/tmp/datasets<span class="w"> </span>--output_dir<span class="w"> </span>/tmp/experiment_results
+$ python generate_paper_configs.py --config_dir /tmp/configs --dataset_dir /tmp/datasets --output_dir /tmp/experiment_results
 </pre></div>
 </div>
 <ul class="simple">
@@ -939,12 +947,12 @@ $<span class="w"> </span>python<span class="w"> </span>generate_paper_configs.py
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#  task: lift</span>
 <span class="c1">#    dataset type: ph</span>
 <span class="c1">#      hdf5 type: low_dim</span>
-python<span class="w"> </span>/path/to/robomimic/scripts/train.py<span class="w"> </span>--config<span class="w"> </span>/path/to/robomimic/exps/paper/core/lift/ph/low_dim/bc.json
-python<span class="w"> </span>/path/to/robomimic/scripts/train.py<span class="w"> </span>--config<span class="w"> </span>/path/to/robomimic/exps/paper/core/lift/ph/low_dim/bc_rnn.json
+python /path/to/robomimic/scripts/train.py --config /path/to/robomimic/exps/paper/core/lift/ph/low_dim/bc.json
+python /path/to/robomimic/scripts/train.py --config /path/to/robomimic/exps/paper/core/lift/ph/low_dim/bc_rnn.json
 </pre></div>
 </div>
 <div class="admonition info">
-<p class="admonition-title">Want to Run Experiments on Custom Observations?</p><p>We provide the raw (observation-free) <code class="docutils literal notranslate"><span class="pre">demo_v141.hdf5</span></code> datasets so that you can generate your own custom set of observations, such as additional camera viewpoints. For information, see <a class="reference internal" href="robosuite.html#extracting-observations-from-mujoco-states"><span class="std std-ref">Extracting Observations from Datasets</span></a>.</p>
+<p class="admonition-title">Want to Run Experiments on Custom Observations?</p><p>We provide the raw (observation-free) <code class="docutils literal notranslate"><span class="pre">demo_v15.hdf5</span></code> datasets so that you can generate your own custom set of observations, such as additional camera viewpoints. For information, see <a class="reference internal" href="robosuite.html#extracting-observations-from-mujoco-states"><span class="std std-ref">Extracting Observations from Datasets</span></a>.</p>
 <p><strong>NOTE</strong>: To compare against how our paper’s released datasets were generated, please see the <code class="docutils literal notranslate"><span class="pre">extract_obs_from_raw_datasets.sh</span></code> script.</p>
 </div></section>
 <section id="overview-of-included-experiments">
@@ -963,14 +971,14 @@ python<span class="w"> </span>/path/to/robomimic/scripts/train.py<span class="w"
 <h3>Quick Example<a class="headerlink" href="#quick-example" title="Permalink to this headline">#</a></h3>
 <p>Below, we show a simple example of how to reproduce one of the results from the study - the BC-RNN result on the Lift (Proficient-Human) low-dim dataset:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># default behavior for download script - just download lift proficient-human low-dim dataset to robomimic/../datasets</span>
-$<span class="w"> </span>python<span class="w"> </span>download_datasets.py
+$ python download_datasets.py
 
 <span class="c1"># generate json configs for running all experiments at robomimic/exps/paper</span>
-$<span class="w"> </span>python<span class="w"> </span>generate_paper_configs.py<span class="w"> </span>--output_dir<span class="w"> </span>/tmp/experiment_results
+$ python generate_paper_configs.py --output_dir /tmp/experiment_results
 
 <span class="c1"># the training command can be found in robomimic/exps/paper/core.sh</span>
 <span class="c1"># Training results can be viewed at /tmp/experiment_results (--output_dir when generating paper configs).</span>
-$<span class="w"> </span>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>../exps/paper/core/lift/ph/low_dim/bc_rnn.json
+$ python train.py --config ../exps/paper/core/lift/ph/low_dim/bc_rnn.json
 </pre></div>
 </div>
 </section>
@@ -978,10 +986,10 @@ $<span class="w"> </span>python<span class="w"> </span>train.py<span class="w"> 
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">#</a></h2>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">robomimic2021</span><span class="p">,</span>
-<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{What Matters in Learning from Offline Human Demonstrations for Robot Manipulation}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Mandlekar, Ajay and Xu, Danfei and Wong, Josiah and Nasiriany, Soroush and Wang, Chen and Kulkarni, Rohun and Fei-Fei, Li and Savarese, Silvio and Zhu, Yuke and Mart{\&#39;\i}n-Mart{\&#39;\i}n, Roberto}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">booktitle</span><span class="p">=</span><span class="s">{5th Annual Conference on Robot Learning}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2021}</span>
+  <span class="na">title</span><span class="p">=</span><span class="s">{What Matters in Learning from Offline Human Demonstrations for Robot Manipulation}</span><span class="p">,</span>
+  <span class="na">author</span><span class="p">=</span><span class="s">{Mandlekar, Ajay and Xu, Danfei and Wong, Josiah and Nasiriany, Soroush and Wang, Chen and Kulkarni, Rohun and Fei-Fei, Li and Savarese, Silvio and Zhu, Yuke and Mart{\&#39;\i}n-Mart{\&#39;\i}n, Roberto}</span><span class="p">,</span>
+  <span class="na">booktitle</span><span class="p">=</span><span class="s">{5th Annual Conference on Robot Learning}</span><span class="p">,</span>
+  <span class="na">year</span><span class="p">=</span><span class="s">{2021}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
