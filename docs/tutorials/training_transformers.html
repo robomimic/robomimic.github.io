@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Training Transformers &#8212; robomimic 0.4 documentation</title>
+    <title>Training Transformers &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,7 +34,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Using Pretrained Models" href="using_pretrained_models.html" />
+    <link rel="next" title="Training Diffusion Policy" href="training_diffusion_policy.html" />
     <link rel="prev" title="Dataset Contents and Visualization" href="dataset_contents.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -202,6 +202,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -349,6 +354,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.3.html">
    v0.3
@@ -554,7 +564,7 @@ title="Print to PDF"
 <section id="using-default-configurations">
 <h2>1. Using default configurations<a class="headerlink" href="#using-default-configurations" title="Permalink to this headline">#</a></h2>
 <p>The easiest way to train a transformer policy network is to pass the default template json to the main training script <code class="docutils literal notranslate"><span class="pre">train.py</span></code> via the <code class="docutils literal notranslate"><span class="pre">--config</span></code> argument. The dataset can be specified by setting the <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">train</span></code> section of the config json, or specified via the <code class="docutils literal notranslate"><span class="pre">--dataset</span></code> argument.  You may find that your data has different rollout horizon lengths, observation modalities, or other incompatibilities with the default template.  In this scenario, we suggest defining custom parameters as described in (2).</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python train.py --config ../config/default_templates/bc_transformer.json --dataset /path/to/dataset.hdf5
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>../config/default_templates/bc_transformer.json<span class="w"> </span>--dataset<span class="w"> </span>/path/to/dataset.hdf5
 </pre></div>
 </div>
 </section>
@@ -563,13 +573,14 @@ title="Print to PDF"
 <p>If you want to modify the default transformer parameters, do not directly modify the default config (<code class="docutils literal notranslate"><span class="pre">config/bc_config.py</span></code>) or template (<code class="docutils literal notranslate"><span class="pre">config/default_templates/bc_transformer.json</span></code>).  Instead, you can create a copy of <code class="docutils literal notranslate"><span class="pre">robomimic/config/default_templates/bc_transformer.json</span></code> and store it in a new directory on your computer.  Set this as the base file for <code class="docutils literal notranslate"><span class="pre">scripts/hyperparam_helper.py</span></code> and define custom settings as described <a class="reference external" href="./hyperparam_scan.html">here</a>.  This is particularly useful when running a sweep over hyperparameters; <strong>it is the prefered way to launch multiple training runs</strong>.</p>
 <p>Optionally, you can modify the default template in python code or directly set the appropriate keys in your copy of the config file.  This code snippet below highlights useful parameters to tune for transformers.  To see all transformer policy settings, refer to <code class="docutils literal notranslate"><span class="pre">config/bc_config.py</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># make sure transformer is enabled</span>
-<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="c1"># useful config attributes to modify for transformers</span>
 <span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">512</span>                       <span class="c1"># dimension for embeddings used by transformer</span>
 <span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="mi">6</span>                        <span class="c1"># number of transformer blocks to stack</span>
 <span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="mi">8</span>                         <span class="c1"># number of attention heads for each transformer block (should divide embed_dim evenly)</span>
 <span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">context_length</span> <span class="o">=</span> <span class="mi">10</span>                   <span class="c1"># length of (s, a) sub-seqeunces to feed to transformer</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">pred_future_acs</span> <span class="o">=</span> <span class="kc">False</span>               <span class="c1"># shift action prediction forward to predict future actions instead of past actions</span>
 <span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">frame_stack</span> <span class="o">=</span> <span class="mi">10</span>                                 <span class="c1"># length of sub-sequence to observe: (s_{t-1}, a_{t-1}), (s_{t-2}, a_{t-2}), ..., (s_{t-9}, a_{t-9})</span>
 <span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">seq_length</span> <span class="o">=</span> <span class="mi">1</span>                                   <span class="c1"># length of sub-seqeunce to predict: (s_{t}, a_{t})</span>
 </pre></div>
@@ -592,10 +603,10 @@ title="Print to PDF"
             <p class="prev-next-title">Dataset Contents and Visualization</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="using_pretrained_models.html" title="next page">
+    <a class='right-next' id="next-link" href="training_diffusion_policy.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Using Pretrained Models</p>
+        <p class="prev-next-title">Training Diffusion Policy</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Configuring and Launching Training Runs &#8212; robomimic 0.4 documentation</title>
+    <title>Configuring and Launching Training Runs &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -202,6 +202,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="training_transformers.html">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -349,6 +354,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.3.html">
    v0.3
@@ -562,7 +572,7 @@ title="Print to PDF"
 <section id="using-a-config-json-preferred">
 <h2>1. Using a config json (preferred)<a class="headerlink" href="#using-a-config-json-preferred" title="Permalink to this headline">#</a></h2>
 <p>The preferred way to specify training parameters is to pass a config json to the main training script <code class="docutils literal notranslate"><span class="pre">train.py</span></code> via the <code class="docutils literal notranslate"><span class="pre">--config</span></code> argument. The dataset can be specified by setting the <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">train</span></code> section of the config json, or specified via the <code class="docutils literal notranslate"><span class="pre">--dataset</span></code> argument. The example below runs a default template json for the BC algorithm. <strong>This is the preferred way to launch training runs.</strong></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python train.py --config ../exps/templates/bc.json --dataset ../../tests/assets/test_v15.hdf5
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>../exps/templates/bc.json<span class="w"> </span>--dataset<span class="w"> </span>../../tests/assets/test_v15.hdf5
 </pre></div>
 </div>
 <p>Please see the <a class="reference external" href="../tutorials/hyperparam_scan.html">hyperparameter helper tutorial</a> to see how to easily generate json configs for launching training runs.</p>
@@ -571,7 +581,7 @@ title="Print to PDF"
 <h2>2. Constructing a config object in code<a class="headerlink" href="#constructing-a-config-object-in-code" title="Permalink to this headline">#</a></h2>
 <p>Another way to launch a training run is to make a default config (with a line like <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">=</span> <span class="pre">config_factory(algo_name=&quot;bc&quot;)</span></code>), modify the config in python code, and then call the train function, like in the <code class="docutils literal notranslate"><span class="pre">examples/train_bc_rnn.py</span></code> script.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">robomimic</span>
-<span class="kn">import</span> <span class="nn">robomimic.utils.torch_utils</span> <span class="kn">as</span> <span class="nn">TorchUtils</span>
+<span class="kn">import</span> <span class="nn">robomimic.utils.torch_utils</span> <span class="k">as</span> <span class="nn">TorchUtils</span>
 <span class="kn">from</span> <span class="nn">robomimic.config</span> <span class="kn">import</span> <span class="n">config_factory</span>
 <span class="kn">from</span> <span class="nn">robomimic.scripts.train</span> <span class="kn">import</span> <span class="n">train</span>
 
@@ -580,14 +590,14 @@ title="Print to PDF"
 
 <span class="c1"># set config attributes here that you would like to update</span>
 <span class="n">config</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bc_rnn_example&quot;</span>
-<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;/path/to/dataset.hdf5&quot;</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/dataset.hdf5&quot;</span><span class="p">}]</span>
 <span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;/path/to/desired/output_dir&quot;</span>
 <span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">gmm</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">gmm</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="c1"># get torch device</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">TorchUtils</span><span class="o">.</span><span class="n">get_torch_device</span><span class="p">(</span><span class="n">try_to_use_cuda</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">TorchUtils</span><span class="o">.</span><span class="n">get_torch_device</span><span class="p">(</span><span class="n">try_to_use_cuda</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># launch training run</span>
 <span class="n">train</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>

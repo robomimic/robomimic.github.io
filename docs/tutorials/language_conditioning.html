@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Multimodal Observations &#8212; robomimic 0.5 documentation</title>
+    <title>Language-conditioned Policy Learning &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,8 +34,6 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pre-trained Visual Representations" href="pretrained_representations.html" />
-    <link rel="prev" title="Using Pretrained Models" href="using_pretrained_models.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -173,7 +171,7 @@
   Tutorials
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="configs.html">
    Configuring and Launching Training Runs
@@ -214,8 +212,8 @@
    Using Pretrained Models
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="observations.html">
    Multimodal Observations
   </a>
  </li>
@@ -442,7 +440,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../sources/tutorials/observations.md.txt"
+        <a href="../sources/tutorials/language_conditioning.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -502,9 +500,26 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modifying-and-adding-your-own-observation-modalities">
-   Modifying and Adding Your Own Observation Modalities
+  <a class="reference internal nav-link" href="#creating-a-dataset-config">
+   1. Creating a Dataset Config
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conditioning-policies-on-language-embeddings">
+   2. Conditioning Policies on Language Embeddings
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-input-to-action-head">
+     Feature input to action head
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#film-over-vision-encoder">
+     FiLM over vision encoder
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -515,7 +530,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Multimodal Observations</h1>
+                <h1>Language-conditioned Policy Learning</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -526,9 +541,26 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modifying-and-adding-your-own-observation-modalities">
-   Modifying and Adding Your Own Observation Modalities
+  <a class="reference internal nav-link" href="#creating-a-dataset-config">
+   1. Creating a Dataset Config
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conditioning-policies-on-language-embeddings">
+   2. Conditioning Policies on Language Embeddings
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-input-to-action-head">
+     Feature input to action head
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#film-over-vision-encoder">
+     FiLM over vision encoder
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -540,32 +572,97 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="multimodal-observations">
-<h1>Multimodal Observations<a class="headerlink" href="#multimodal-observations" title="Permalink to this headline">#</a></h1>
-<p><strong>robomimic</strong> natively supports multiple different observation modalities, and provides integrated support for modifying observations and adding your own custom ones.</p>
-<p>First, we highlight semantic distinctions when referring to different aspects of observations:</p>
+  <section id="language-conditioned-policy-learning">
+<h1>Language-conditioned Policy Learning<a class="headerlink" href="#language-conditioned-policy-learning" title="Permalink to this headline">#</a></h1>
+<p>This tutorial will guide you through setting up language-conditioned policy learning in robomimic.</p>
+<div class="admonition note">
+<p class="admonition-title">Note: Understand how to launch training runs and view results first!</p><p>Before trying to train a language-conditioned policy, it might be useful to read the following tutorials:</p>
 <ul class="simple">
-<li><p><strong>Keys</strong> are individual observations that are received from an environment / dataset. For example, <code class="docutils literal notranslate"><span class="pre">rgb_wrist</span></code>, <code class="docutils literal notranslate"><span class="pre">eef_pos</span></code>, and <code class="docutils literal notranslate"><span class="pre">joint_vel</span></code> could be keys, depending on the dataset / environment.</p></li>
-<li><p><strong>Modalities</strong> are different observation modes. For example, low dimensional states are considered a single mode, whereas RGB observations might be another mode. <strong>robomimic</strong> natively supports four modalities: <code class="docutils literal notranslate"><span class="pre">low_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code>, and <code class="docutils literal notranslate"><span class="pre">scan</span></code>. Each modality owns it own set of observation keys.</p></li>
-<li><p><strong>Groups</strong> consist of potentially multiple modalities and multiple keys per modality, which are together passed to a learning model. For example, <strong>robomimic</strong> commonly uses three different groups: <code class="docutils literal notranslate"><span class="pre">obs</span></code>, which contains the normal observations passed to any model using these as inputs, and <code class="docutils literal notranslate"><span class="pre">goal</span></code> / <code class="docutils literal notranslate"><span class="pre">subgoal</span></code>, which means any specified modalities / keys correspond to a goal / subgoal to be learned.</p></li>
+<li><p><a class="reference external" href="./configs.html">how to launch training runs</a></p></li>
+<li><p><a class="reference external" href="./viewing_results.html">how to view training results</a></p></li>
+<li><p><a class="reference external" href="./hyperparam_scan.html">how to launch multiple training runs efficiently</a></p></li>
 </ul>
-<p>Observations are handled in the following way:</p>
+</div><section id="creating-a-dataset-config">
+<h2>1. Creating a Dataset Config<a class="headerlink" href="#creating-a-dataset-config" title="Permalink to this headline">#</a></h2>
+<p>To create a dataset config with language conditioning, include the <code class="docutils literal notranslate"><span class="pre">lang</span></code> key under the dataset config dictionary. This key should specify the language annotations for all demos in this dataset.</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    ...
+    &quot;train&quot;: {
+        &quot;data&quot;: [
+            {
+                &quot;path&quot;: &quot;path/to/dataset.hdf5&quot;,
+                &quot;lang&quot;: &quot;language instruction for your task&quot;
+            },
+            ...
+        ],
+        ...
+    },
+    ...
+}
+</pre></div>
+</div>
+</section>
+<section id="conditioning-policies-on-language-embeddings">
+<h2>2. Conditioning Policies on Language Embeddings<a class="headerlink" href="#conditioning-policies-on-language-embeddings" title="Permalink to this headline">#</a></h2>
+<p>We support CLIP embeddings for encoding language. The pre-defined key for language embeddings is <code class="docutils literal notranslate"><span class="pre">lang_emb</span></code> (specified in <code class="docutils literal notranslate"><span class="pre">robomimic/utils/lang_utils.py</span></code>). You can condition your policy on <code class="docutils literal notranslate"><span class="pre">lang_emb</span></code> using 2 ways:</p>
 <ol class="simple">
-<li><p>Each observation key is according to their modality via their <code class="docutils literal notranslate"><span class="pre">Modality</span></code> class,</p></li>
-<li><p>All observations for a given modality are concatenated and passed through an <code class="docutils literal notranslate"><span class="pre">ObservationEncoder</span></code> for that modality,</p></li>
-<li><p>All processed observations over all modalities are concatenated together and passed to a learning network</p></li>
+<li><p>As feature input to action head</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1709.07871">FiLM</a> over vision encoder</p></li>
 </ol>
-<section id="modifying-and-adding-your-own-observation-modalities">
-<h2>Modifying and Adding Your Own Observation Modalities<a class="headerlink" href="#modifying-and-adding-your-own-observation-modalities" title="Permalink to this headline">#</a></h2>
-<p><strong>robomimic</strong> natively supports the following modalities:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">low_dim</span></code>: low-dimensional states</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code>: RGB images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">depth</span></code>: depth images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scan</span></code>: scan arrays</p></li>
-</ul>
-<p>The way each of these modalities are processed and encoded can be easily specified by modifying their respective <code class="docutils literal notranslate"><span class="pre">encoder</span></code> parameters in your <code class="docutils literal notranslate"><span class="pre">Config</span></code> class.</p>
-<p>You may want to specify your own custom modalities that get processed and encoded in a certain way (e.g.: semantic segmentation, optical flow, etc…). This can also easily be done, and we refer you to our <a class="reference external" href="https://github.com/ARISE-Initiative/robomimic/blob/master/examples/simple_obs_nets.py">example script</a> which walks through the process.</p>
+<section id="feature-input-to-action-head">
+<h3>Feature input to action head<a class="headerlink" href="#feature-input-to-action-head" title="Permalink to this headline">#</a></h3>
+<p>This concatenates language embeddings with other low-dim observations input to the policy.</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    ...
+    &quot;observation&quot;: {
+        &quot;modalities&quot;: {
+            &quot;obs&quot;: {
+                &quot;low_dim&quot;: [
+                    &quot;robot0_eef_pos&quot;,
+                    &quot;robot0_eef_quat&quot;,
+                    &quot;lang_emb&quot;
+                ],
+                ...
+            },
+        },
+        ...
+    },
+    ...
+}
+</pre></div>
+</div>
+</section>
+<section id="film-over-vision-encoder">
+<h3>FiLM over vision encoder<a class="headerlink" href="#film-over-vision-encoder" title="Permalink to this headline">#</a></h3>
+<p>This conditions the ResNet18 visual encoder with <code class="docutils literal notranslate"><span class="pre">lang_emb</span></code> using FiLM (see <a class="reference external" href="https://arxiv.org/pdf/1709.07871">paper</a>).</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+    ...
+    &quot;observation&quot;: {
+        &quot;rgb&quot;: {
+            &quot;core_class&quot;: &quot;VisualCoreLanguageConditioned&quot;,
+            &quot;core_kwargs&quot;: {
+                &quot;feature_dimension&quot;: 64,
+                &quot;flatten&quot;: true,
+                &quot;backbone_class&quot;: &quot;ResNet18ConvFiLM&quot;,
+                &quot;backbone_kwargs&quot;: {
+                    &quot;pretrained&quot;: false,
+                    &quot;input_coord_conv&quot;: false
+                },
+                &quot;pool_class&quot;: null,
+                &quot;pool_kwargs&quot;: {}
+            },
+            &quot;obs_randomizer_class&quot;: null,
+            &quot;obs_randomizer_kwargs&quot;: {}
+        },
+        ...
+    }
+}
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -577,20 +674,6 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="using_pretrained_models.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Using Pretrained Models</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="pretrained_representations.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pre-trained Visual Representations</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

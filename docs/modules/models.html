@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Models &#8212; robomimic 0.4 documentation</title>
+    <title>Models &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -202,6 +202,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../tutorials/training_transformers.html">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -349,6 +354,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.3.html">
    v0.3
@@ -771,7 +781,7 @@ title="Print to PDF"
   <span class="o">...</span>
 
   <span class="k">def</span> <span class="nf">output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
-      <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">      </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      Function to compute output shape from inputs to this module. </span>
 
 <span class="sd">      Args:</span>
@@ -807,10 +817,10 @@ title="Print to PDF"
 <span class="n">vis_net</span> <span class="o">=</span> <span class="n">VisualCore</span><span class="p">(</span>
   <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span>
   <span class="n">core_class</span><span class="o">=</span><span class="s2">&quot;ResNet18Conv&quot;</span><span class="p">,</span>  <span class="c1"># use ResNet18 as the visualcore backbone</span>
-  <span class="n">core_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pretrained&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s2">&quot;input_coord_conv&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">},</span>  <span class="c1"># kwargs for the ResNet18Conv class</span>
+  <span class="n">core_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pretrained&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;input_coord_conv&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># kwargs for the ResNet18Conv class</span>
   <span class="n">pool_class</span><span class="o">=</span><span class="s2">&quot;SpatialSoftmax&quot;</span><span class="p">,</span>  <span class="c1"># use spatial softmax to regularize the model output</span>
   <span class="n">pool_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;num_kp&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">},</span>  <span class="c1"># kwargs for the SpatialSoftmax --- use 32 keypoints</span>
-  <span class="n">flatten</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>  <span class="c1"># flatten the output of the spatial softmax layer</span>
+  <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># flatten the output of the spatial softmax layer</span>
   <span class="n">feature_dimension</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>  <span class="c1"># project the flattened feature into a 64-dim vector through a linear layer </span>
 <span class="p">)</span>
 </pre></div>
@@ -833,7 +843,7 @@ title="Print to PDF"
   <span class="n">conv_activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span>   <span class="c1"># use relu in between each Conv1d layer</span>
   <span class="n">pool_class</span><span class="o">=</span><span class="s2">&quot;SpatialSoftmax&quot;</span><span class="p">,</span>  <span class="c1"># use spatial softmax to regularize the model output</span>
   <span class="n">pool_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;num_kp&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">},</span>  <span class="c1"># kwargs for the SpatialSoftmax --- use 32 keypoints</span>
-  <span class="n">flatten</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>  <span class="c1"># flatten the output of the spatial softmax layer</span>
+  <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># flatten the output of the spatial softmax layer</span>
   <span class="n">feature_dimension</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>  <span class="c1"># project the flattened feature into a 64-dim vector through a linear layer </span>
 <span class="p">)</span>
 </pre></div>
@@ -868,7 +878,7 @@ title="Print to PDF"
 <span class="n">net_kwargs</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;input_shape&quot;</span><span class="p">:</span> <span class="n">camera1_shape</span><span class="p">,</span>
     <span class="s2">&quot;core_class&quot;</span><span class="p">:</span> <span class="s2">&quot;ResNet18Conv&quot;</span><span class="p">,</span>  <span class="c1"># use ResNet18 as the visualcore backbone</span>
-    <span class="s2">&quot;core_kwargs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pretrained&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s2">&quot;input_coord_conv&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">},</span>
+    <span class="s2">&quot;core_kwargs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pretrained&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;input_coord_conv&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
     <span class="s2">&quot;pool_class&quot;</span><span class="p">:</span> <span class="s2">&quot;SpatialSoftmax&quot;</span><span class="p">,</span>  <span class="c1"># use spatial softmax to regularize the model output</span>
     <span class="s2">&quot;pool_kwargs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_kp&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">}</span>
 <span class="p">}</span>
@@ -879,12 +889,12 @@ title="Print to PDF"
     <span class="n">shape</span><span class="o">=</span><span class="n">camera1_shape</span><span class="p">,</span>
     <span class="n">net_class</span><span class="o">=</span><span class="n">net_class</span><span class="p">,</span>
     <span class="n">net_kwargs</span><span class="o">=</span><span class="n">net_kwargs</span><span class="p">,</span>
-    <span class="n">randomizer</span><span class="o">=</span><span class="n">image_randomizer</span>
+    <span class="n">randomizers</span><span class="o">=</span><span class="n">image_randomizer</span>
 <span class="p">)</span>
 
 <span class="c1"># We could mix low-dimensional observation, e.g., proprioception signal, in the encoder</span>
 <span class="n">proprio_shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">]</span>
-<span class="n">net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">layer_dims</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,),</span> <span class="n">output_activation</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">layer_dims</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,),</span> <span class="n">output_activation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">obs_encoder</span><span class="o">.</span><span class="n">register_obs_key</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;proprio&quot;</span><span class="p">,</span>
     <span class="n">shape</span><span class="o">=</span><span class="n">proprio_shape</span><span class="p">,</span>

@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>robomimic.config package &#8212; robomimic 0.4 documentation</title>
+    <title>robomimic.config package &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -202,6 +202,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../tutorials/training_transformers.html">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -349,6 +354,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.3.html">
    v0.3
@@ -522,6 +532,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-robomimic.config.diffusion_policy_config">
+   robomimic.config.diffusion_policy_config module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#module-robomimic.config.gl_config">
    robomimic.config.gl_config module
   </a>
@@ -598,6 +613,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#module-robomimic.config.cql_config">
    robomimic.config.cql_config module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-robomimic.config.diffusion_policy_config">
+   robomimic.config.diffusion_policy_config module
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -696,13 +716,13 @@ implemented by every subclass.</p>
 <dd><p>low_dim, rgb, depth, etc.) and over all
 modality groups (e.g: obs, goal, subgoal, etc…)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>all observation keys used for this model</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>n-array</p>
 </dd>
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>This grabs the union of observation keys over all modalities (e.g.</p>
 </dd>
 </dl>
@@ -866,17 +886,17 @@ might be a variable type and number of arguments contained in the sub-config.</p
 <span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.config.config.Config.dump" title="Permalink to this definition">#</a></dt>
 <dd><p>Dumps the config to a json.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – if not None, save to json file.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>json string representation of</dt><dd><p>this config</p>
 </dd>
 </dl>
 </p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>json_string (str)</p>
 </dd>
 </dl>
@@ -989,6 +1009,30 @@ training and test-time behavior should be populated here.</p>
 <dt class="sig sig-object py" id="robomimic.config.cql_config.CQLConfig.train_config">
 <span class="sig-name descname"><span class="pre">train_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.config.cql_config.CQLConfig.train_config" title="Permalink to this definition">#</a></dt>
 <dd><p>Update from superclass to change default batch size.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-robomimic.config.diffusion_policy_config">
+<span id="robomimic-config-diffusion-policy-config-module"></span><h2>robomimic.config.diffusion_policy_config module<a class="headerlink" href="#module-robomimic.config.diffusion_policy_config" title="Permalink to this headline">#</a></h2>
+<p>Config for Diffusion Policy algorithm.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robomimic.config.diffusion_policy_config.DiffusionPolicyConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robomimic.config.diffusion_policy_config.</span></span><span class="sig-name descname"><span class="pre">DiffusionPolicyConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_to_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.config.diffusion_policy_config.DiffusionPolicyConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#robomimic.config.base_config.BaseConfig" title="robomimic.config.base_config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">robomimic.config.base_config.BaseConfig</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robomimic.config.diffusion_policy_config.DiffusionPolicyConfig.ALGO_NAME">
+<span class="sig-name descname"><span class="pre">ALGO_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'diffusion_policy'</span></em><a class="headerlink" href="#robomimic.config.diffusion_policy_config.DiffusionPolicyConfig.ALGO_NAME" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robomimic.config.diffusion_policy_config.DiffusionPolicyConfig.algo_config">
+<span class="sig-name descname"><span class="pre">algo_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#robomimic.config.diffusion_policy_config.DiffusionPolicyConfig.algo_config" title="Permalink to this definition">#</a></dt>
+<dd><p>This function populates the <cite>config.algo</cite> attribute of the config, and is given to the
+<cite>Algo</cite> subclass (see <cite>algo/algo.py</cite>) for each algorithm through the <cite>algo_config</cite>
+argument to the constructor. Any parameter that an algorithm needs to determine its
+training and test-time behavior should be populated here.</p>
 </dd></dl>
 
 </dd></dl>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Logging and Viewing Training Results &#8212; robomimic 0.5 documentation</title>
+    <title>Action Configuration &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,8 +34,6 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Running Hyperparameter Scans" href="hyperparam_scan.html" />
-    <link rel="prev" title="Configuring and Launching Training Runs" href="configs.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -173,14 +171,14 @@
   Tutorials
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="configs.html">
    Configuring and Launching Training Runs
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="viewing_results.html">
    Logging and Viewing Training Results
   </a>
  </li>
@@ -442,7 +440,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../sources/tutorials/viewing_results.md.txt"
+        <a href="../sources/tutorials/action_configs.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -502,60 +500,46 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#configuring-logging">
-   Configuring Logging
+  <a class="reference internal nav-link" href="#overview">
+   1. Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#action-configuration-structure">
+   2. Action Configuration Structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supported-normalization-methods">
+   3. Supported Normalization Methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-configurations">
+   4. Example Configurations
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#saving-experiment-logs">
-     Saving Experiment Logs
+    <a class="reference internal nav-link" href="#robot-end-effector-control">
+     4.1 Robot End-Effector Control
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#saving-model-checkpoints">
-     Saving Model Checkpoints
+    <a class="reference internal nav-link" href="#mixed-action-spaces">
+     4.2 Mixed Action Spaces
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluating-rollouts-and-saving-videos">
-     Evaluating Rollouts and Saving Videos
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#evaluating-rollouts">
-       Evaluating Rollouts
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#saving-videos">
-       Saving Videos
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#viewing-training-results">
-   Viewing Training Results
+  <a class="reference internal nav-link" href="#best-practices">
+   5. Best Practices
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#contents-of-training-outputs">
-     Contents of Training Outputs
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#viewing-tensorboard-results">
-     Viewing Tensorboard Results
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#viewing-wandb-results">
-     Viewing wandb Results
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementation-details">
+   6. Implementation Details
+  </a>
  </li>
 </ul>
 
@@ -566,7 +550,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Logging and Viewing Training Results</h1>
+                <h1>Action Configuration</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -577,60 +561,46 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#configuring-logging">
-   Configuring Logging
+  <a class="reference internal nav-link" href="#overview">
+   1. Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#action-configuration-structure">
+   2. Action Configuration Structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supported-normalization-methods">
+   3. Supported Normalization Methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-configurations">
+   4. Example Configurations
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#saving-experiment-logs">
-     Saving Experiment Logs
+    <a class="reference internal nav-link" href="#robot-end-effector-control">
+     4.1 Robot End-Effector Control
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#saving-model-checkpoints">
-     Saving Model Checkpoints
+    <a class="reference internal nav-link" href="#mixed-action-spaces">
+     4.2 Mixed Action Spaces
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluating-rollouts-and-saving-videos">
-     Evaluating Rollouts and Saving Videos
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#evaluating-rollouts">
-       Evaluating Rollouts
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#saving-videos">
-       Saving Videos
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#viewing-training-results">
-   Viewing Training Results
+  <a class="reference internal nav-link" href="#best-practices">
+   5. Best Practices
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#contents-of-training-outputs">
-     Contents of Training Outputs
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#viewing-tensorboard-results">
-     Viewing Tensorboard Results
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#viewing-wandb-results">
-     Viewing wandb Results
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementation-details">
+   6. Implementation Details
+  </a>
  </li>
 </ul>
 
@@ -642,117 +612,167 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="logging-and-viewing-training-results">
-<h1>Logging and Viewing Training Results<a class="headerlink" href="#logging-and-viewing-training-results" title="Permalink to this headline">#</a></h1>
-<p>In this section, we describe how to configure the logging and evaluations that occur during your training run, and how to view the results of a training run.</p>
-<section id="configuring-logging">
-<h2>Configuring Logging<a class="headerlink" href="#configuring-logging" title="Permalink to this headline">#</a></h2>
-<section id="saving-experiment-logs">
-<h3>Saving Experiment Logs<a class="headerlink" href="#saving-experiment-logs" title="Permalink to this headline">#</a></h3>
-<p>Configured under <code class="docutils literal notranslate"><span class="pre">experiment.logging</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;logging&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="c1"># save terminal outputs under `logs/log.txt` in experiment folder</span>
-    <span class="s2">&quot;terminal_output_to_txt&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-    
-    <span class="c1"># save tensorboard logs under `logs/tb` in experiment folder</span>
-    <span class="s2">&quot;log_tb&quot;</span><span class="p">:</span> <span class="n">true</span>
+  <section id="action-configuration">
+<h1>Action Configuration<a class="headerlink" href="#action-configuration" title="Permalink to this headline">#</a></h1>
+<p>This tutorial shows how to configure action spaces and normalization in robomimic, particularly useful for tasks with structured action spaces like robot manipulation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note: Understand how to launch training runs first!</p><p>Before diving into action configuration, it might be useful to read the following tutorials:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="./configs.html">how to launch training runs</a></p></li>
+<li><p><a class="reference external" href="./viewing_results.html">how to view training results</a></p></li>
+</ul>
+</div><section id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>Robomimic supports structured action spaces where different action components can be treated differently. This is particularly useful for:</p>
+<ul class="simple">
+<li><p>Robot manipulation tasks with different action components (e.g., end-effector position and rotation)</p></li>
+<li><p>Actions that require different normalization schemes</p></li>
+<li><p>Combining multiple action outputs with different physical meanings</p></li>
+</ul>
+</section>
+<section id="action-configuration-structure">
+<h2>2. Action Configuration Structure<a class="headerlink" href="#action-configuration-structure" title="Permalink to this headline">#</a></h2>
+<p>The action configuration consists of two main components:</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">action_keys</span></code>: List of action components to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">action_config</span></code>: Dictionary specifying how each action component should be processed</p></li>
+</ol>
+<p>Here’s the basic structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">action_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;action/eef_pos&quot;</span><span class="p">,</span> <span class="s2">&quot;action/eef_rot&quot;</span><span class="p">]</span>  <span class="c1"># order matters!</span>
 
-    <span class="c1"># save wandb logs under `logs/wandb` in experiment folder</span>
-    <span class="s2">&quot;log_wandb&quot;</span><span class="p">:</span> <span class="n">true</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-</section>
-<section id="saving-model-checkpoints">
-<h3>Saving Model Checkpoints<a class="headerlink" href="#saving-model-checkpoints" title="Permalink to this headline">#</a></h3>
-<p>Configured under <code class="docutils literal notranslate"><span class="pre">experiment.save</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;save&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="c1"># enable saving model checkpoints</span>
-    <span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-    
-    <span class="c1"># controlling frequency of checkpoints</span>
-    <span class="s2">&quot;every_n_seconds&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
-    <span class="s2">&quot;every_n_epochs&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    
-    <span class="c1"># saving the best checkpoints</span>
-    <span class="s2">&quot;on_best_validation&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-    <span class="s2">&quot;on_best_rollout_return&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-    <span class="s2">&quot;on_best_rollout_success_rate&quot;</span><span class="p">:</span> <span class="n">true</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-</section>
-<section id="evaluating-rollouts-and-saving-videos">
-<h3>Evaluating Rollouts and Saving Videos<a class="headerlink" href="#evaluating-rollouts-and-saving-videos" title="Permalink to this headline">#</a></h3>
-<section id="evaluating-rollouts">
-<h4>Evaluating Rollouts<a class="headerlink" href="#evaluating-rollouts" title="Permalink to this headline">#</a></h4>
-<p>Configured under <code class="docutils literal notranslate"><span class="pre">experiment.rollout</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;rollout&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>              <span class="c1"># enable evaluation rollouts</span>
-    <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>                      <span class="c1"># number of rollouts per evaluation</span>
-    <span class="s2">&quot;horizon&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>               <span class="c1"># number of timesteps per rollout</span>
-    <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>                   <span class="c1"># frequency of evaluation (in epochs)</span>
-    <span class="s2">&quot;terminate_on_success&quot;</span><span class="p">:</span> <span class="n">true</span>  <span class="c1"># terminating rollouts upon task success</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">action_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;action/eef_pos&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;min_max&quot;</span><span class="p">,</span>    <span class="c1"># normalize to [-1, 1]</span>
+        <span class="s2">&quot;rot_conversion&quot;</span><span class="p">:</span> <span class="kc">None</span>         <span class="c1"># no rotation conversion</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;action/eef_rot&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>         <span class="c1"># no normalization</span>
+        <span class="s2">&quot;rot_conversion&quot;</span><span class="p">:</span> <span class="s2">&quot;axis_angle_to_6d&quot;</span>  <span class="c1"># convert rotation format</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </section>
-<section id="saving-videos">
-<h4>Saving Videos<a class="headerlink" href="#saving-videos" title="Permalink to this headline">#</a></h4>
-<p>To save videos of the rollouts, set <code class="docutils literal notranslate"><span class="pre">experiment.render_video</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
-</section>
-</section>
-</section>
-<section id="viewing-training-results">
-<h2>Viewing Training Results<a class="headerlink" href="#viewing-training-results" title="Permalink to this headline">#</a></h2>
-<section id="contents-of-training-outputs">
-<h3>Contents of Training Outputs<a class="headerlink" href="#contents-of-training-outputs" title="Permalink to this headline">#</a></h3>
-<p>After the script finishes, you can check the training outputs in the <code class="docutils literal notranslate"><span class="pre">&lt;train.output_dir&gt;/&lt;experiment.name&gt;/&lt;date&gt;</span></code> experiment directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">json</span>               <span class="c1"># config used for this experiment</span>
-<span class="n">logs</span><span class="o">/</span>                     <span class="c1"># experiment log files</span>
-  <span class="n">log</span><span class="o">.</span><span class="n">txt</span>                    <span class="c1"># terminal output</span>
-  <span class="n">tb</span><span class="o">/</span>                        <span class="c1"># tensorboard logs</span>
-  <span class="n">wandb</span><span class="o">/</span>                     <span class="c1"># wandb logs</span>
-<span class="n">videos</span><span class="o">/</span>                   <span class="c1"># videos of robot rollouts during training</span>
-<span class="n">models</span><span class="o">/</span>                   <span class="c1"># saved model checkpoints</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Loading Trained Checkpoints</p><p>Please see the <a class="reference external" href="./using_pretrained_models.html">Using Pretrained Models</a> tutorial to see how to load the trained model checkpoints in the <code class="docutils literal notranslate"><span class="pre">models</span></code> directory.</p>
-</div></section>
-<section id="viewing-tensorboard-results">
-<h3>Viewing Tensorboard Results<a class="headerlink" href="#viewing-tensorboard-results" title="Permalink to this headline">#</a></h3>
-<p>The experiment results can be viewed using tensorboard:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>&lt;experiment-log-dir&gt;<span class="w"> </span>--bind_all
-</pre></div>
-</div>
-<p>Below is a snapshot of the tensorboard dashboard:
-<a href="../images/tensorboard.png" target="_blank"></p>
-<p align="center">
-  <img width="99.0%" src="../images/tensorboard.png">
-</p>
-</a><p>Experiment results (y-axis) are logged across epochs (x-axis).
-You may find the following logging metrics useful:</p>
+<section id="supported-normalization-methods">
+<h2>3. Supported Normalization Methods<a class="headerlink" href="#supported-normalization-methods" title="Permalink to this headline">#</a></h2>
+<p>Robomimic supports several normalization methods for action components:</p>
+<ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: No normalization</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Rollout/</span></code>: evaluation rollout metrics, eg. success rate, rewards, etc.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Rollout/Success_Rate/{envname}-max</span></code>: maximum success rate over time (this is the metric the <a class="reference external" href="https://arxiv.org/abs/2108.03298">study paper</a> uses to evaluate baselines)</p></li>
+<li><p>Uses unit scale and zero offset</p></li>
+<li><p>Useful when actions are already in desired range</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Timing_Stats/</span></code>: time spent by the algorithm loading data, training, performing rollouts, etc.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Timing_Stats/</span></code>: time spent by the algorithm loading data, training, performing rollouts, etc.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Train/</span></code>: training stats</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Validation/</span></code>: validation stats</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">System/RAM</span> <span class="pre">Usage</span> <span class="pre">(MB)</span></code>: system RAM used by algorithm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;min_max&quot;</span></code>: Min-max normalization</p>
+<ul class="simple">
+<li><p>Scales actions to range [-1, 1]</p></li>
+<li><p>Useful for bounded action components like positions</p></li>
+<li><p>Handles numerical stability with small ranges</p></li>
 </ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;min_max&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gaussian&quot;</span></code>: Gaussian normalization</p>
+<ul class="simple">
+<li><p>Normalizes to zero mean and unit variance</p></li>
+<li><p>Useful for unbounded action components</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;gaussian&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </section>
-<section id="viewing-wandb-results">
-<h3>Viewing wandb Results<a class="headerlink" href="#viewing-wandb-results" title="Permalink to this headline">#</a></h3>
-<p>You can also view results in <a class="reference external" href="https://wandb.ai">wandb</a>, similarly to tensorboard. To do so, ensure that you have set <code class="docutils literal notranslate"><span class="pre">experiment.logging.log_wandb</span></code> to True in the experiment config.</p>
-<p>When first logging to wandb, you will need to specify a wandb entity name, ie. the wandb account under which results will be logged. You can do so by setting <code class="docutils literal notranslate"><span class="pre">WANDB_ENTITY</span></code> to the desired wandb account name in <code class="docutils literal notranslate"><span class="pre">robomimic/macros_private.py</span></code>. Note: if this file does not exist, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">robomimic/scripts/setup_macros.py</span></code> to setup the private macros file.</p>
-<p>By default all results will be logged under a wandb project labled <code class="docutils literal notranslate"><span class="pre">default</span></code>, however you can set the project name by setting <code class="docutils literal notranslate"><span class="pre">experiment.logging.wandb_proj_name</span></code> in the configs.</p>
+<section id="example-configurations">
+<h2>4. Example Configurations<a class="headerlink" href="#example-configurations" title="Permalink to this headline">#</a></h2>
+<p>Here are some common use cases:</p>
+<section id="robot-end-effector-control">
+<h3>4.1 Robot End-Effector Control<a class="headerlink" href="#robot-end-effector-control" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure end-effector position and rotation actions</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">action_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;action/eef_pos&quot;</span><span class="p">,</span> <span class="s2">&quot;action/eef_rot&quot;</span><span class="p">]</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">action_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;action/eef_pos&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;min_max&quot;</span><span class="p">,</span>     <span class="c1"># normalize position to [-1, 1]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;action/eef_rot&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">,</span>    <span class="c1"># normalize rotation with zero mean, unit variance</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
+<section id="mixed-action-spaces">
+<h3>4.2 Mixed Action Spaces<a class="headerlink" href="#mixed-action-spaces" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure position, rotation, and gripper actions</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">action_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;action/eef_pos&quot;</span><span class="p">,</span> <span class="s2">&quot;action/eef_rot&quot;</span><span class="p">,</span> <span class="s2">&quot;action/gripper&quot;</span><span class="p">]</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">action_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;action/eef_pos&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;min_max&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;action/eef_rot&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;action/gripper&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;normalization&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>          <span class="c1"># gripper already in [-1, 1]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>5. Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p><strong>Action Component Order</strong>:</p>
+<ul class="simple">
+<li><p>Order in <code class="docutils literal notranslate"><span class="pre">action_keys</span></code> determines concatenation order</p></li>
+<li><p>Keep order consistent across training and deployment</p></li>
+<li><p>Document the expected order in your configs</p></li>
+</ul>
+</li>
+<li><p><strong>Normalization Selection</strong>:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">min_max</span></code> for bounded values (e.g., positions, normalized vectors)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> for unbounded values or when distribution matters</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">None</span></code> when values are already properly scaled</p></li>
+</ul>
+</li>
+<li><p><strong>Numerical Stability</strong>:</p>
+<ul class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">min_max</span></code> implementation, ranges smaller than 1e-4 are not scaled</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> implementation, distributions with stddev smaller than 1e-6 are not scaled</p></li>
+</ul>
+</li>
+<li><p><strong>Diffusion Policy Compatibility</strong>:</p>
+<ul class="simple">
+<li><p>When using Diffusion Policy, ensure actions are normalized to [-1, 1]</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">min_max</span></code> normalization or pre-normalize your data</p></li>
+<li><p>The policy will check if actions are in the correct range</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="implementation-details">
+<h2>6. Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">#</a></h2>
+<p>The normalization process:</p>
+<ol class="simple">
+<li><p>Computes statistics (min, max, mean, std) across the entire dataset</p></li>
+<li><p>Applies the specified normalization method to each action component</p></li>
+<li><p>Concatenates the normalized components in the order specified by <code class="docutils literal notranslate"><span class="pre">action_keys</span></code></p></li>
+</ol>
+<p>For <code class="docutils literal notranslate"><span class="pre">min_max</span></code> normalization:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizes to range [-0.999999, 0.999999] for numerical stability</span>
+<span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_max</span> <span class="o">-</span> <span class="n">input_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">output_max</span> <span class="o">-</span> <span class="n">output_min</span><span class="p">)</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="n">input_min</span> <span class="o">-</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">output_min</span>
+<span class="n">normalized_action</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw_action</span> <span class="o">-</span> <span class="n">offset</span><span class="p">)</span> <span class="o">/</span> <span class="n">scale</span>
+</pre></div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> normalization:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizes to zero mean, unit variance</span>
+<span class="n">normalized_action</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw_action</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">std</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -764,20 +784,6 @@ You may find the following logging metrics useful:</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="configs.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Configuring and Launching Training Runs</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="hyperparam_scan.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Running Hyperparameter Scans</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

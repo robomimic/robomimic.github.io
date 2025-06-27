@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pre-trained Visual Representations &#8212; robomimic 0.4 documentation</title>
+    <title>Pre-trained Visual Representations &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -202,6 +202,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="training_transformers.html">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -349,6 +354,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.3.html">
    v0.3
@@ -558,14 +568,14 @@ title="Print to PDF"
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># R3M</span>
 <span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_class</span> <span class="o">=</span> <span class="s1">&#39;R3MConv&#39;</span>                         <span class="c1"># R3M backbone for image observations (unused if no image observations)</span>
 <span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_kwargs</span><span class="o">.</span><span class="n">r3m_model_class</span> <span class="o">=</span> <span class="s1">&#39;resnet18&#39;</span>       <span class="c1"># R3M model class (resnet18, resnet34, resnet50)</span>
-<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_kwargs</span><span class="o">.</span><span class="n">freeze</span> <span class="o">=</span> <span class="bp">True</span>                      <span class="c1"># whether to freeze network during training or allow finetuning</span>
-<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">pool_class</span> <span class="o">=</span> <span class="bp">None</span>                                  <span class="c1"># no pooling class for pretraining model</span>
+<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_kwargs</span><span class="o">.</span><span class="n">freeze</span> <span class="o">=</span> <span class="kc">True</span>                      <span class="c1"># whether to freeze network during training or allow finetuning</span>
+<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">pool_class</span> <span class="o">=</span> <span class="kc">None</span>                                  <span class="c1"># no pooling class for pretraining model</span>
 
 <span class="c1"># MVP</span>
 <span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_class</span> <span class="o">=</span> <span class="s1">&#39;MVPConv&#39;</span>                                   <span class="c1"># MVP backbone for image observations (unused if no image observations)</span>
 <span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_kwargs</span><span class="o">.</span><span class="n">mvp_model_class</span> <span class="o">=</span> <span class="s1">&#39;vitb-mae-egosoup&#39;</span>         <span class="c1"># MVP model class (vits-mae-hoi, vits-mae-in, vits-sup-in, vitb-mae-egosoup, vitl-256-mae-egosoup)</span>
-<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_kwargs</span><span class="o">.</span><span class="n">freeze</span> <span class="o">=</span> <span class="bp">True</span>                      <span class="c1"># whether to freeze network during training or allow finetuning</span>
-<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">pool_class</span> <span class="o">=</span> <span class="bp">None</span>                                  <span class="c1"># no pooling class for pretraining model</span>
+<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">backbone_kwargs</span><span class="o">.</span><span class="n">freeze</span> <span class="o">=</span> <span class="kc">True</span>                      <span class="c1"># whether to freeze network during training or allow finetuning</span>
+<span class="n">config</span><span class="o">.</span><span class="n">observation</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">core_kwargs</span><span class="o">.</span><span class="n">pool_class</span> <span class="o">=</span> <span class="kc">None</span>                                  <span class="c1"># no pooling class for pretraining model</span>
 
 <span class="c1"># Set data loader attributes for image observations</span>
 <span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">num_data_workers</span> <span class="o">=</span> <span class="mi">2</span>                           <span class="c1"># 2 data workers for image datasets</span>

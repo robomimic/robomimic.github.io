@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Multimodal Observations &#8212; robomimic 0.5 documentation</title>
+    <title>Multi-Dataset Training &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,8 +34,6 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pre-trained Visual Representations" href="pretrained_representations.html" />
-    <link rel="prev" title="Using Pretrained Models" href="using_pretrained_models.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -173,7 +171,7 @@
   Tutorials
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="configs.html">
    Configuring and Launching Training Runs
@@ -214,8 +212,8 @@
    Using Pretrained Models
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="observations.html">
    Multimodal Observations
   </a>
  </li>
@@ -442,7 +440,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../sources/tutorials/observations.md.txt"
+        <a href="../sources/tutorials/multi_dataset_training.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -502,8 +500,28 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modifying-and-adding-your-own-observation-modalities">
-   Modifying and Adding Your Own Observation Modalities
+  <a class="reference internal nav-link" href="#overview">
+   1. Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configuring-multi-dataset-training">
+   2. Configuring Multi-Dataset Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#understanding-weight-normalization">
+   3. Understanding Weight Normalization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-configuration">
+   4. Example Configuration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#best-practices">
+   5. Best Practices
   </a>
  </li>
 </ul>
@@ -515,7 +533,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Multimodal Observations</h1>
+                <h1>Multi-Dataset Training</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -526,8 +544,28 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modifying-and-adding-your-own-observation-modalities">
-   Modifying and Adding Your Own Observation Modalities
+  <a class="reference internal nav-link" href="#overview">
+   1. Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configuring-multi-dataset-training">
+   2. Configuring Multi-Dataset Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#understanding-weight-normalization">
+   3. Understanding Weight Normalization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-configuration">
+   4. Example Configuration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#best-practices">
+   5. Best Practices
   </a>
  </li>
 </ul>
@@ -540,32 +578,122 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="multimodal-observations">
-<h1>Multimodal Observations<a class="headerlink" href="#multimodal-observations" title="Permalink to this headline">#</a></h1>
-<p><strong>robomimic</strong> natively supports multiple different observation modalities, and provides integrated support for modifying observations and adding your own custom ones.</p>
-<p>First, we highlight semantic distinctions when referring to different aspects of observations:</p>
+  <section id="multi-dataset-training">
+<h1>Multi-Dataset Training<a class="headerlink" href="#multi-dataset-training" title="Permalink to this headline">#</a></h1>
+<p>This tutorial shows how to train a model on multiple datasets simultaneously.</p>
+<div class="admonition note">
+<p class="admonition-title">Note: Understand how to launch training runs first!</p><p>Before trying to train on multiple datasets, it might be useful to read the following tutorials:</p>
 <ul class="simple">
-<li><p><strong>Keys</strong> are individual observations that are received from an environment / dataset. For example, <code class="docutils literal notranslate"><span class="pre">rgb_wrist</span></code>, <code class="docutils literal notranslate"><span class="pre">eef_pos</span></code>, and <code class="docutils literal notranslate"><span class="pre">joint_vel</span></code> could be keys, depending on the dataset / environment.</p></li>
-<li><p><strong>Modalities</strong> are different observation modes. For example, low dimensional states are considered a single mode, whereas RGB observations might be another mode. <strong>robomimic</strong> natively supports four modalities: <code class="docutils literal notranslate"><span class="pre">low_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code>, and <code class="docutils literal notranslate"><span class="pre">scan</span></code>. Each modality owns it own set of observation keys.</p></li>
-<li><p><strong>Groups</strong> consist of potentially multiple modalities and multiple keys per modality, which are together passed to a learning model. For example, <strong>robomimic</strong> commonly uses three different groups: <code class="docutils literal notranslate"><span class="pre">obs</span></code>, which contains the normal observations passed to any model using these as inputs, and <code class="docutils literal notranslate"><span class="pre">goal</span></code> / <code class="docutils literal notranslate"><span class="pre">subgoal</span></code>, which means any specified modalities / keys correspond to a goal / subgoal to be learned.</p></li>
+<li><p><a class="reference external" href="./configs.html">how to launch training runs</a></p></li>
+<li><p><a class="reference external" href="./viewing_results.html">how to view training results</a></p></li>
 </ul>
-<p>Observations are handled in the following way:</p>
+</div><section id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>Robomimic supports training on multiple datasets simultaneously. This is useful when you want to:</p>
+<ul class="simple">
+<li><p>Train a single model on multiple tasks</p></li>
+<li><p>Combine datasets with different qualities (e.g., expert and suboptimal demonstrations)</p></li>
+<li><p>Balance data from different sources</p></li>
+</ul>
+<p>Each dataset can have its own weight for sampling, and you can control whether these weights are normalized by dataset size or not.</p>
+</section>
+<section id="configuring-multi-dataset-training">
+<h2>2. Configuring Multi-Dataset Training<a class="headerlink" href="#configuring-multi-dataset-training" title="Permalink to this headline">#</a></h2>
+<p>To train on multiple datasets, you need to specify a list of dataset configurations in your config file. Each dataset configuration is a dictionary with the following keys:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/dataset1.hdf5&quot;</span><span class="p">,</span>      <span class="c1"># (required) path to the hdf5 file</span>
+        <span class="s2">&quot;demo_limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>                     <span class="c1"># (optional) limit number of demos to use</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>                         <span class="c1"># (optional) weight for sampling, defaults to 1.0</span>
+        <span class="s2">&quot;eval&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>                          <span class="c1"># (optional) whether to evaluate on this dataset&#39;s env</span>
+        <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;make coffee&quot;</span><span class="p">,</span>                 <span class="c1"># (optional) language instruction for the dataset</span>
+        <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;coffee&quot;</span>                        <span class="c1"># (optional) key for naming eval videos</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/dataset2.hdf5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>                         <span class="c1"># this dataset will be sampled twice as often</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Additionally, you can control how the weights are used with the <code class="docutils literal notranslate"><span class="pre">normalize_weights_by_ds_size</span></code> setting:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">normalize_weights_by_ds_size</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># default</span>
+</pre></div>
+</div>
+</section>
+<section id="understanding-weight-normalization">
+<h2>3. Understanding Weight Normalization<a class="headerlink" href="#understanding-weight-normalization" title="Permalink to this headline">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">normalize_weights_by_ds_size</span></code> setting controls how dataset weights affect sampling:</p>
+<ul class="simple">
+<li><p>When <code class="docutils literal notranslate"><span class="pre">False</span></code> (default):</p>
+<ul>
+<li><p>Raw weights are used directly</p></li>
+<li><p>Larger datasets will naturally be sampled more often when assigned the same weight</p></li>
+<li><p>Example: If dataset A has 1000 samples and dataset B has 100 samples, with equal weights (1.0), you’ll see roughly 10 samples from A for every 1 sample from B</p></li>
+</ul>
+</li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
+<ul>
+<li><p>Weights are normalized by dataset size</p></li>
+<li><p>Equal weights result in balanced sampling regardless of dataset size</p></li>
+<li><p>Example: If dataset A has 1000 samples and dataset B has 100 samples, with equal weights (1.0), you’ll see roughly equal numbers of samples from both datasets</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="example-configuration">
+<h2>4. Example Configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">#</a></h2>
+<p>Here’s a complete example showing how to train a BC model on two datasets with different weights:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">robomimic</span>
+<span class="kn">from</span> <span class="nn">robomimic.config</span> <span class="kn">import</span> <span class="n">config_factory</span>
+
+<span class="c1"># create BC config</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">config_factory</span><span class="p">(</span><span class="n">algo_name</span><span class="o">=</span><span class="s2">&quot;bc&quot;</span><span class="p">)</span>
+
+<span class="c1"># configure datasets</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;expert_demos.hdf5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>                    <span class="c1"># sample expert demos more frequently</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;suboptimal_demos.hdf5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># normalize weights by dataset size for balanced sampling</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">normalize_weights_by_ds_size</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># other training settings...</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">config</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+</section>
+<section id="best-practices">
+<h2>5. Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
-<li><p>Each observation key is according to their modality via their <code class="docutils literal notranslate"><span class="pre">Modality</span></code> class,</p></li>
-<li><p>All observations for a given modality are concatenated and passed through an <code class="docutils literal notranslate"><span class="pre">ObservationEncoder</span></code> for that modality,</p></li>
-<li><p>All processed observations over all modalities are concatenated together and passed to a learning network</p></li>
-</ol>
-<section id="modifying-and-adding-your-own-observation-modalities">
-<h2>Modifying and Adding Your Own Observation Modalities<a class="headerlink" href="#modifying-and-adding-your-own-observation-modalities" title="Permalink to this headline">#</a></h2>
-<p><strong>robomimic</strong> natively supports the following modalities:</p>
+<li><p><strong>Weight Selection</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">low_dim</span></code>: low-dimensional states</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code>: RGB images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">depth</span></code>: depth images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scan</span></code>: scan arrays</p></li>
+<li><p>Use higher weights for higher-quality data</p></li>
+<li><p>Consider using <code class="docutils literal notranslate"><span class="pre">normalize_weights_by_ds_size=True</span></code> when datasets have very different sizes</p></li>
+<li><p>Start with equal weights and adjust based on performance</p></li>
 </ul>
-<p>The way each of these modalities are processed and encoded can be easily specified by modifying their respective <code class="docutils literal notranslate"><span class="pre">encoder</span></code> parameters in your <code class="docutils literal notranslate"><span class="pre">Config</span></code> class.</p>
-<p>You may want to specify your own custom modalities that get processed and encoded in a certain way (e.g.: semantic segmentation, optical flow, etc…). This can also easily be done, and we refer you to our <a class="reference external" href="https://github.com/ARISE-Initiative/robomimic/blob/master/examples/simple_obs_nets.py">example script</a> which walks through the process.</p>
+</li>
+<li><p><strong>Dataset Compatibility</strong>:</p>
+<ul class="simple">
+<li><p>Ensure all datasets have compatible observation and action spaces</p></li>
+<li><p>Use consistent preprocessing across datasets</p></li>
+</ul>
+</li>
+<li><p><strong>Evaluation</strong>:</p>
+<ul class="simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">eval</span></code> flag to control which environments to evaluate on</p></li>
+<li><p>Set descriptive <code class="docutils literal notranslate"><span class="pre">key</span></code> values for clear video naming</p></li>
+</ul>
+</li>
+</ol>
 </section>
 </section>
 
@@ -577,20 +705,6 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="using_pretrained_models.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Using Pretrained Models</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="pretrained_representations.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pre-trained Visual Representations</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

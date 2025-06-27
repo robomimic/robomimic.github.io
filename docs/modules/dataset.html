@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SequenceDataset &#8212; robomimic 0.4 documentation</title>
+    <title>SequenceDataset &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -79,7 +79,7 @@
       <img src="../static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -202,6 +202,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../tutorials/training_transformers.html">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -349,6 +354,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../versions/v0.3.html">
    v0.3
@@ -512,11 +522,11 @@ title="Print to PDF"
     <span class="p">),</span>
     <span class="n">seq_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>                  <span class="c1"># length of sub-sequence to fetch: (s_{t}, a_{t}), (s_{t+1}, a_{t+1}), ..., (s_{t+9}, a_{t+9}) </span>
     <span class="n">frame_stack</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                  <span class="c1"># length of sub-sequence to prepend</span>
-    <span class="n">pad_seq_length</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>            <span class="c1"># pad last obs per trajectory to ensure all sequences are sampled</span>
-    <span class="n">pad_frame_stack</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>           <span class="c1"># pad first obs per trajectory to ensure all sequences are sampled</span>
+    <span class="n">pad_seq_length</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>            <span class="c1"># pad last obs per trajectory to ensure all sequences are sampled</span>
+    <span class="n">pad_frame_stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pad first obs per trajectory to ensure all sequences are sampled</span>
     <span class="n">hdf5_cache_mode</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>          <span class="c1"># cache dataset in memory to avoid repeated file i/o</span>
-    <span class="n">hdf5_normalize_obs</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-    <span class="n">filter_by_attribute</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>       <span class="c1"># can optionally provide a filter key here</span>
+    <span class="n">hdf5_normalize_obs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">filter_by_attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>       <span class="c1"># can optionally provide a filter key here</span>
 <span class="p">)</span>
 </pre></div>
 </div>

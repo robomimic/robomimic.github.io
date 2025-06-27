@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Multimodal Observations &#8212; robomimic 0.5 documentation</title>
+    <title>Training Diffusion Policy &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -34,8 +34,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pre-trained Visual Representations" href="pretrained_representations.html" />
-    <link rel="prev" title="Using Pretrained Models" href="using_pretrained_models.html" />
+    <link rel="next" title="Using Pretrained Models" href="using_pretrained_models.html" />
+    <link rel="prev" title="Training Transformers" href="training_transformers.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -204,8 +204,8 @@
    Training Transformers
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="training_diffusion_policy.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Training Diffusion Policy
   </a>
  </li>
@@ -214,8 +214,8 @@
    Using Pretrained Models
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="observations.html">
    Multimodal Observations
   </a>
  </li>
@@ -442,7 +442,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../sources/tutorials/observations.md.txt"
+        <a href="../sources/tutorials/training_diffusion_policy.md.txt"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -502,8 +502,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modifying-and-adding-your-own-observation-modalities">
-   Modifying and Adding Your Own Observation Modalities
+  <a class="reference internal nav-link" href="#using-default-configurations">
+   1. Using default configurations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-custom-parameters">
+   2. Defining custom parameters
   </a>
  </li>
 </ul>
@@ -515,7 +520,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Multimodal Observations</h1>
+                <h1>Training Diffusion Policy</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -526,8 +531,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modifying-and-adding-your-own-observation-modalities">
-   Modifying and Adding Your Own Observation Modalities
+  <a class="reference internal nav-link" href="#using-default-configurations">
+   1. Using default configurations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-custom-parameters">
+   2. Defining custom parameters
   </a>
  </li>
 </ul>
@@ -540,32 +550,41 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="multimodal-observations">
-<h1>Multimodal Observations<a class="headerlink" href="#multimodal-observations" title="Permalink to this headline">#</a></h1>
-<p><strong>robomimic</strong> natively supports multiple different observation modalities, and provides integrated support for modifying observations and adding your own custom ones.</p>
-<p>First, we highlight semantic distinctions when referring to different aspects of observations:</p>
+  <section id="training-diffusion-policy">
+<h1>Training Diffusion Policy<a class="headerlink" href="#training-diffusion-policy" title="Permalink to this headline">#</a></h1>
+<p>This tutorial shows how to train a Diffusion Policy model (introduced in <a class="reference external" href="https://arxiv.org/pdf/2303.04137v4">this paper</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note: Understand how to launch training runs and view results first!</p><p>Before trying to train a Diffusion Policy, it might be useful to read the following tutorials:</p>
 <ul class="simple">
-<li><p><strong>Keys</strong> are individual observations that are received from an environment / dataset. For example, <code class="docutils literal notranslate"><span class="pre">rgb_wrist</span></code>, <code class="docutils literal notranslate"><span class="pre">eef_pos</span></code>, and <code class="docutils literal notranslate"><span class="pre">joint_vel</span></code> could be keys, depending on the dataset / environment.</p></li>
-<li><p><strong>Modalities</strong> are different observation modes. For example, low dimensional states are considered a single mode, whereas RGB observations might be another mode. <strong>robomimic</strong> natively supports four modalities: <code class="docutils literal notranslate"><span class="pre">low_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code>, and <code class="docutils literal notranslate"><span class="pre">scan</span></code>. Each modality owns it own set of observation keys.</p></li>
-<li><p><strong>Groups</strong> consist of potentially multiple modalities and multiple keys per modality, which are together passed to a learning model. For example, <strong>robomimic</strong> commonly uses three different groups: <code class="docutils literal notranslate"><span class="pre">obs</span></code>, which contains the normal observations passed to any model using these as inputs, and <code class="docutils literal notranslate"><span class="pre">goal</span></code> / <code class="docutils literal notranslate"><span class="pre">subgoal</span></code>, which means any specified modalities / keys correspond to a goal / subgoal to be learned.</p></li>
+<li><p><a class="reference external" href="./configs.html">how to launch training runs</a></p></li>
+<li><p><a class="reference external" href="./viewing_results.html">how to view training results</a></p></li>
+<li><p><a class="reference external" href="./hyperparam_scan.html">how to launch multiple training runs efficiently</a></p></li>
 </ul>
-<p>Observations are handled in the following way:</p>
-<ol class="simple">
-<li><p>Each observation key is according to their modality via their <code class="docutils literal notranslate"><span class="pre">Modality</span></code> class,</p></li>
-<li><p>All observations for a given modality are concatenated and passed through an <code class="docutils literal notranslate"><span class="pre">ObservationEncoder</span></code> for that modality,</p></li>
-<li><p>All processed observations over all modalities are concatenated together and passed to a learning network</p></li>
-</ol>
-<section id="modifying-and-adding-your-own-observation-modalities">
-<h2>Modifying and Adding Your Own Observation Modalities<a class="headerlink" href="#modifying-and-adding-your-own-observation-modalities" title="Permalink to this headline">#</a></h2>
-<p><strong>robomimic</strong> natively supports the following modalities:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">low_dim</span></code>: low-dimensional states</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code>: RGB images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">depth</span></code>: depth images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scan</span></code>: scan arrays</p></li>
-</ul>
-<p>The way each of these modalities are processed and encoded can be easily specified by modifying their respective <code class="docutils literal notranslate"><span class="pre">encoder</span></code> parameters in your <code class="docutils literal notranslate"><span class="pre">Config</span></code> class.</p>
-<p>You may want to specify your own custom modalities that get processed and encoded in a certain way (e.g.: semantic segmentation, optical flow, etc…). This can also easily be done, and we refer you to our <a class="reference external" href="https://github.com/ARISE-Initiative/robomimic/blob/master/examples/simple_obs_nets.py">example script</a> which walks through the process.</p>
+</div><p>A template with tuned parameters for Diffusion Policy is defined in <code class="docutils literal notranslate"><span class="pre">robomimic/exps/templates/diffusion_policy.json</span></code>.</p>
+<section id="using-default-configurations">
+<h2>1. Using default configurations<a class="headerlink" href="#using-default-configurations" title="Permalink to this headline">#</a></h2>
+<p>The easiest way to train a Diffusion Policy model is to pass the default template json to the main training script <code class="docutils literal notranslate"><span class="pre">train.py</span></code> via the <code class="docutils literal notranslate"><span class="pre">--config</span></code> argument. The dataset can be specified by setting the <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">train</span></code> section of the config json, or specified via the <code class="docutils literal notranslate"><span class="pre">--dataset</span></code> argument.  You may find that your data has different rollout horizon lengths, observation modalities, or other incompatibilities with the default template.  In this scenario, we suggest defining custom parameters as described in (2).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>../exps/templates/diffusion_policy.json<span class="w"> </span>--dataset<span class="w"> </span>/path/to/dataset.hdf5
+</pre></div>
+</div>
+</section>
+<section id="defining-custom-parameters">
+<h2>2. Defining custom parameters<a class="headerlink" href="#defining-custom-parameters" title="Permalink to this headline">#</a></h2>
+<p>If you want to modify the default Diffusion Policy parameters, do not directly modify the default config (<code class="docutils literal notranslate"><span class="pre">config/diffusion_policy_config.py</span></code>) or template (<code class="docutils literal notranslate"><span class="pre">exps/templates/diffusion_policy.json</span></code>). Instead, you can create a copy of <code class="docutils literal notranslate"><span class="pre">robomimic/exps/templates/diffusion_policy.json</span></code> and store it in a new directory on your computer. Set this as the base file for <code class="docutils literal notranslate"><span class="pre">scripts/hyperparam_helper.py</span></code> and define custom settings as described <a class="reference external" href="./hyperparam_scan.html">here</a>.  This is particularly useful when running a sweep over hyperparameters; <strong>it is the prefered way to launch multiple training runs</strong>.</p>
+<p>Optionally, you can modify the default template in python code or directly set the appropriate keys in your copy of the config file.  This code snippet below highlights useful parameters to tune for Diffusion Policy. To see all Diffusion Policy settings, refer to <code class="docutils literal notranslate"><span class="pre">config/diffusion_policy_config.py</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># make sure diffusion policy is enabled</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo_name</span> <span class="o">=</span> <span class="s2">&quot;diffusion_policy&quot;</span>
+
+<span class="c1"># useful config attributes to modify for diffusion policy</span>
+<span class="c1">## horizon parameters</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">observation_horizon</span> <span class="o">=</span> <span class="mi">2</span>                 <span class="c1"># number of observation frames to condition the action denoising</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">prediction_horizon</span> <span class="o">=</span> <span class="mi">16</span>                 <span class="c1"># number of actions to predict</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">horizon</span><span class="o">.</span><span class="n">action_horizon</span> <span class="o">=</span> <span class="mi">8</span>                      <span class="c1"># among predicted, number of actions to use during rollout</span>
+<span class="c1">## noise scheduler: ddpm or ddim</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">ddpm</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">config</span><span class="o">.</span><span class="n">algo</span><span class="o">.</span><span class="n">ddim</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -577,17 +596,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="using_pretrained_models.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="training_transformers.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Using Pretrained Models</p>
+            <p class="prev-next-title">Training Transformers</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="pretrained_representations.html" title="next page">
+    <a class='right-next' id="next-link" href="using_pretrained_models.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pre-trained Visual Representations</p>
+        <p class="prev-next-title">Using Pretrained Models</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

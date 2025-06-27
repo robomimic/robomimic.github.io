@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to robomimic’s documentation! &#8212; robomimic 0.4 documentation</title>
+    <title>Welcome to robomimic’s documentation! &#8212; robomimic 0.5 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -78,7 +78,7 @@
       <img src="static/robomimic_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">robomimic 0.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">robomimic 0.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -201,6 +201,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="tutorials/training_transformers.html">
    Training Transformers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tutorials/training_diffusion_policy.html">
+   Training Diffusion Policy
   </a>
  </li>
  <li class="toctree-l1">
@@ -348,6 +353,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="versions/v0.4.html">
+   v0.4
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="versions/v0.3.html">
    v0.3
@@ -582,6 +592,7 @@ title="Print to PDF"
 <li class="toctree-l1"><a class="reference internal" href="tutorials/reproducing_experiments.html">Reproducing Published Experiments and Results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/dataset_contents.html">Dataset Contents and Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/training_transformers.html">Training Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/training_diffusion_policy.html">Training Diffusion Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/using_pretrained_models.html">Using Pretrained Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/observations.html">Multimodal Observations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/pretrained_representations.html">Pre-trained Visual Representations</a></li>
@@ -607,16 +618,17 @@ title="Print to PDF"
 <li class="toctree-l2"><a class="reference internal" href="api/robomimic.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/robomimic.algo.html">robomimic.algo package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.algo">robomimic.algo.algo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.bc">robomimic.algo.bc module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.bcq">robomimic.algo.bcq module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.cql">robomimic.algo.cql module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.gl">robomimic.algo.gl module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.hbc">robomimic.algo.hbc module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.iql">robomimic.algo.iql module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.iris">robomimic.algo.iris module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo.td3_bc">robomimic.algo.td3_bc module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-robomimic.algo">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-algo-module">robomimic.algo.algo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-bc-module">robomimic.algo.bc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-bcq-module">robomimic.algo.bcq module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-cql-module">robomimic.algo.cql module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-diffusion-policy-module">robomimic.algo.diffusion_policy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-gl-module">robomimic.algo.gl module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-hbc-module">robomimic.algo.hbc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-iql-module">robomimic.algo.iql module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-iris-module">robomimic.algo.iris module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#robomimic-algo-td3-bc-module">robomimic.algo.td3_bc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.algo.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/robomimic.config.html">robomimic.config package</a><ul>
@@ -626,6 +638,7 @@ title="Print to PDF"
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.bcq_config">robomimic.config.bcq_config module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.config">robomimic.config.config module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.cql_config">robomimic.config.cql_config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.diffusion_policy_config">robomimic.config.diffusion_policy_config module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.gl_config">robomimic.config.gl_config module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.hbc_config">robomimic.config.hbc_config module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.config.html#module-robomimic.config.iql_config">robomimic.config.iql_config module</a></li>
@@ -639,7 +652,7 @@ title="Print to PDF"
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#module-robomimic.envs.env_base">robomimic.envs.env_base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#robomimic-envs-env-gym-module">robomimic.envs.env_gym module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#robomimic-envs-env-ig-momart-module">robomimic.envs.env_ig_momart module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#module-robomimic.envs.env_robosuite">robomimic.envs.env_robosuite module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#robomimic-envs-env-robosuite-module">robomimic.envs.env_robosuite module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#module-robomimic.envs.wrappers">robomimic.envs.wrappers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.envs.html#module-robomimic.envs">Module contents</a></li>
 </ul>
@@ -647,30 +660,32 @@ title="Print to PDF"
 <li class="toctree-l3"><a class="reference internal" href="api/robomimic.models.html">robomimic.models package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.base_nets">robomimic.models.base_nets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.diffusion_policy_nets">robomimic.models.diffusion_policy_nets module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.distributions">robomimic.models.distributions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.obs_core">robomimic.models.obs_core module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.obs_nets">robomimic.models.obs_nets module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.policy_nets">robomimic.models.policy_nets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#robomimic-models-obs-nets-module">robomimic.models.obs_nets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#robomimic-models-policy-nets-module">robomimic.models.policy_nets module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.transformers">robomimic.models.transformers module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.vae_nets">robomimic.models.vae_nets module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models.value_nets">robomimic.models.value_nets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#robomimic-models-vae-nets-module">robomimic.models.vae_nets module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#robomimic-models-value-nets-module">robomimic.models.value_nets module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.models.html#module-robomimic.models">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/robomimic.utils.html">robomimic.utils package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.dataset">robomimic.utils.dataset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#robomimic-utils-dataset-module">robomimic.utils.dataset module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.env_utils">robomimic.utils.env_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.file_utils">robomimic.utils.file_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#robomimic-utils-file-utils-module">robomimic.utils.file_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.hyperparam_utils">robomimic.utils.hyperparam_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#robomimic-utils-lang-utils-module">robomimic.utils.lang_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.log_utils">robomimic.utils.log_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.loss_utils">robomimic.utils.loss_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.obs_utils">robomimic.utils.obs_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.python_utils">robomimic.utils.python_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.tensor_utils">robomimic.utils.tensor_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.test_utils">robomimic.utils.test_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#robomimic-utils-test-utils-module">robomimic.utils.test_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.torch_utils">robomimic.utils.torch_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.train_utils">robomimic.utils.train_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#robomimic-utils-train-utils-module">robomimic.utils.train_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils.vis_utils">robomimic.utils.vis_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/robomimic.utils.html#module-robomimic.utils">Module contents</a></li>
 </ul>
@@ -698,6 +713,7 @@ title="Print to PDF"
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Previous Versions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="versions/v0.4.html">v0.4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="versions/v0.3.html">v0.3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="versions/v0.2.html">v0.2</a></li>
 </ul>
