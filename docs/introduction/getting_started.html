@@ -200,6 +200,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/multi_dataset_training.html">
+   Multi-Dataset Training
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../tutorials/training_transformers.html">
    Training Transformers
   </a>
@@ -217,6 +222,16 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../tutorials/observations.html">
    Multimodal Observations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/action_configs.html">
+   Action Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/language_conditioning.html">
+   Language-conditioned Policy Learning
   </a>
  </li>
  <li class="toctree-l1">
@@ -623,7 +638,7 @@ title="Print to PDF"
 </div>
 <div class="admonition note">
 <p class="admonition-title">Running quick sanity check experiments</p><p>Make sure to add the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> flag to your experiments as a sanity check that your implementation works.</p>
-</div><p><strong>Resume functionality</strong>: If your training job fails due to any reason, you can re-launch your job with the additional <code class="docutils literal notranslate"><span class="pre">--resume</span></code> flag to resume training from the last saved epoch. This will resume training from the <code class="docutils literal notranslate"><span class="pre">last.pth</span></code> checkpoint in your output directory. Some points to note:</p>
+</div><p><strong>Resume functionality</strong>: If your training job fails due to any reason, you can re-launch your job with the additional <code class="docutils literal notranslate"><span class="pre">--resume</span></code> flag to resume training from the last saved epoch. This will resume training from the <code class="docutils literal notranslate"><span class="pre">last.pth</span></code> checkpoint in your output directory for the most recent training run. Some points to note:</p>
 <ol class="simple">
 <li><p>While fine-tuning from a specified checkpoint (in <code class="docutils literal notranslate"><span class="pre">config.experiment.ckpt_path</span></code>) would load model weights from the checkpoint, resume functionality also loads the optimizer state.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">config.experiment.ckpt_path</span></code> will be ignored if you are resuming a training job, i.e. <code class="docutils literal notranslate"><span class="pre">last.pth</span></code> will take precedence if <code class="docutils literal notranslate"><span class="pre">--resume</span></code> is passed.</p></li>
